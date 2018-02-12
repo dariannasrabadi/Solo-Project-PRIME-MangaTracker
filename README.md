@@ -20,9 +20,10 @@ High level list of items completed.
 
 - [x] Login Page
 - [x] Register Page
-- [ ] Home View & Search Functionality
-- [ ] Results View & Favorites Functionality
-- [ ] Favorites View & Last Chapter Read Functionality
+- [x] Home View & Search Functionality
+- [x] Results View & Favorites Functionality
+- [x] Favorites View & Filter
+- [ ] Latest Chapter & Last Chapter Read Functionality
 - [ ] Detailed Manga Information View
 - [ ] Add Genres to home view
 - [ ] Genre Results View 
