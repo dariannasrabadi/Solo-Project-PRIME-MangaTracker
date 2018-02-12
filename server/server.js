@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+//To bring in .env listed vars. 
+const env = require('dotenv').config();
 
 const passport = require('./strategies/sql.localstrategy');
 const sessionConfig = require('./modules/session-middleware');

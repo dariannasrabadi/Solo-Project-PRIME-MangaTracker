@@ -37,6 +37,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
         console.log('sending to server...', self.user);
         $http.post('/api/user/register', self.user).then(function (response) {
           console.log('success');
+          // REMINDER - Try to make a toast appear on successful account registration or something. 
           $location.path('/login');
         },
           function (response) {

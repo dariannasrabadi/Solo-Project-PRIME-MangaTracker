@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
 myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
@@ -17,7 +17,7 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
     })
     .when('/home', {
       templateUrl: '/views/templates/home.html',
-      controller: 'UserController as vm',
+      controller: 'HomeController as vm',
       resolve: {
         getuser : function(UserService){
           return UserService.getuser();
