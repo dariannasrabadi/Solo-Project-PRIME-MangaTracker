@@ -6,7 +6,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
 
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) {
-        $http.get('/api/manga', searchInput)
+        $http.get(`/api/manga/${searchInput}`)
             .then(response => {
                 console.log(response);
             })
@@ -14,9 +14,6 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 console.log(error);
             })
     };
-
-    //Delete this after done with testing
-    self.searchManga()
 
 }]);
   
