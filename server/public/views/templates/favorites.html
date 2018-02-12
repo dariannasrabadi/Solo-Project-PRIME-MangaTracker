@@ -1,6 +1,12 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-  <p>
-    Favorites
-  </p>
+<div class="cardContainer" layout="row">
+    <md-card class="cards" ng-repeat="favorites in vm.userFavorites.list.data.rows">
+        <img ng-src="{{favorites.manga_image_url}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+            <md-card-title-text>
+                <h3>{{favorites.manga_name}}</h3>
+                <h3>Last Chapter Read: {{favorites.last_chapter_read}}</h3>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
 </div>

@@ -5,50 +5,49 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
   console.log('myApp -- config')
   $routeProvider
     .when('/', {
-      redirectTo: 'login'
+        redirectTo: 'login'
     })
     .when('/login', {
-      templateUrl: '/views/templates/login.html',
-      controller: 'LoginController as vm',
+        templateUrl: '/views/templates/login.html',
+        controller: 'LoginController as vm',
     })
     .when('/register', {
-      templateUrl: '/views/templates/register.html',
-      controller: 'LoginController as vm'
+        templateUrl: '/views/templates/register.html',
+        controller: 'LoginController as vm'
     })
     .when('/home', {
-      templateUrl: '/views/templates/home.html',
-      controller: 'HomeController as vm',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
+        templateUrl: '/views/templates/home.html',
+        controller: 'HomeController as vm',
+        resolve: {
+            getuser : function(UserService){
+                return UserService.getuser();
+            }
         }
-      }
     })
     .when('/info', {
-      templateUrl: '/views/templates/info.html',
-      controller: 'InfoController as vm',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
+        templateUrl: '/views/templates/info.html',
+        controller: 'InfoController as vm',
+        resolve: {
+            getuser : function(UserService){
+                return UserService.getuser();
+            }
         }
-      }
     })
     .when('/results', {
         templateUrl: '/views/templates/results.html',
         controller: 'HomeController as vm',
         resolve: {
-          getuser : function(UserService){
-            return UserService.getuser();
-          }
+            getuser : function(UserService){
+                return UserService.getuser();
+            }
         }
       })
     .when('/favorites', {
-      templateUrl: '/views/templates/favorites.html',
-      //Change this to favorites controller.
-      // controller: 'UserController as vm',
-      resolve: {
-        getuser : function(UserService){
-          return UserService.getuser();
+        templateUrl: '/views/templates/favorites.html',
+        controller: 'FavoriteController as vm',
+        resolve: {
+            getuser : function(UserService){
+                return UserService.getuser();
         }
       }
     })
