@@ -8,7 +8,7 @@ passport.serializeUser(function(user, done) {
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log('called deserializeUser - pg');
+//   console.log('called deserializeUser - pg');
 
   pool.connect(function (err, client, release) {
     if(err) {
@@ -36,7 +36,7 @@ passport.deserializeUser(function(id, done) {
           return done(null, false, {message: 'Incorrect credentials.'});
       } else {
         // user found
-        console.log('User row ', user);
+        // console.log('User row ', user);
         done(null, user);
       }
 
@@ -50,7 +50,7 @@ passport.use('local', new localStrategy({
     usernameField: 'username'
     }, function(req, username, password, done) {
 	    pool.connect(function (err, client, release) {
-	    	console.log('called local - pg');
+	    	// console.log('called local - pg');
 
         // assumes the username will be unique, thus returning 1 or 0 results
         client.query("SELECT * FROM users WHERE username = $1", [username],
