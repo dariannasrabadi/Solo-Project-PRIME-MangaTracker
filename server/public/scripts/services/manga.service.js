@@ -5,5 +5,5 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
     console.log('Inside Manga Service');
 
 
-  }]);
+}]);
   

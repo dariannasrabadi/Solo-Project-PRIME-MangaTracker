@@ -44,10 +44,6 @@ body, html {
   background-color: #f8f8f8;
 }
 
-.btn-danger{
-  margin-left: 10px;
-}
-
 .navbar {
   background-color: #333333;
   width: 100%;
@@ -76,5 +72,24 @@ body, html {
 /* Change the link color to #111 (black) on hover */
 .navList li a:hover {
   text-decoration: underline;
-  color: #eee;
+  color: #1e9406;
+}
+
+/* cant get it to display how I want it to yet */
+/* #searchNav {
+align-content: center;
+} */
+
+#userNav {
+  float: right;
+}
+
+p {
+  color: white;
+  font-size: 20px
+}
+
+#logOut {
+  margin-top: 15px;
+  margin-left: 5px;
 }

@@ -1,9 +1,22 @@
 <div class="navbar">
   <div class="container">
+    <!-- Filler Logo -->
+    <img src="https://www.shareicon.net/data/128x128/2016/11/15/853200_religion_512x512.png">
     <ul class="navList">
+      <!-- View Links -->
       <li><a href="#!home">Home</a></li>
       <li><a href="#!favorites">Favorites</a></li>
       <li><a href="#!info">Technologies</a></li>
+      <!-- Universal Search Bar When User is Logged In. -->
+      <span id="searchNav">
+        <li><input type="text" placeholder="Search Manga Here" ng-model="searchInput"></li>
+        <li><button ng-click="vm.searchManga(searchInput)">Search</button></li>
+      </span>
+      <!-- Username and logout button to logout from anywhere. -->
+      <span id="userNav">
+        <li><p>Hi {{vm.userObject.userName}}!</p></li>
+        <li><button id="logOut" ng-click="vm.userService.logout()">Log Out</button></li>
+      </span>
     </ul>
   </div>
 </div>
