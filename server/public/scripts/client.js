@@ -33,6 +33,15 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
         }
       }
     })
+    .when('/results', {
+        templateUrl: '/views/templates/results.html',
+        controller: 'HomeController as vm',
+        resolve: {
+          getuser : function(UserService){
+            return UserService.getuser();
+          }
+        }
+      })
     .when('/favorites', {
       templateUrl: '/views/templates/favorites.html',
       //Change this to favorites controller.
