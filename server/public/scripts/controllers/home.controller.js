@@ -13,4 +13,8 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
 
     self.imageTest = 'https://umbra.nascom.nasa.gov/images/latest_aia_211_tn.gif'
 
+    self.addFavorite = function(mangaInfo) {
+        MangaService.addFavorite(mangaInfo);
+    }
+
 }]);
