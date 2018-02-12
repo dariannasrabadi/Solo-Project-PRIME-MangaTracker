@@ -9,6 +9,7 @@ const sessionConfig = require('./modules/session-middleware');
 
 // Route includes
 const userRouter = require('./routes/user.router');
+const mangaRouter = require('./routes/manga.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -23,6 +24,8 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
+app.use('/api/manga', mangaRouter);
+
 
 // Serve static files
 app.use(express.static('server/public'));

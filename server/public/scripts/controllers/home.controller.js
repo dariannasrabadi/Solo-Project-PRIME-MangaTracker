@@ -5,9 +5,9 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
     self.userService = UserService;
     self.userObject = UserService.userObject;
 
-        //Sending search inquiry to the service to perform get request.
-        self.searchManga = function(searchInput) {
-            MangaService.searchManga(searchInput);
-        }
-    
+    //Sending search inquiry to the service to perform get request.
+    self.searchManga = function(searchInput) {
+        MangaService.searchManga(searchInput);
+    }
+
 }]);
