@@ -1,10 +1,12 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="cardContainer">
-    <md-card>
-        <img ng-src="{{vm.imageTest}}" class="md-card-image" alt="Washed Out">
+<!-- Card for each manga, this -->
+<div class="cardContainer" layout="row">
+    <md-card ng-repeat="manga in vm.mangaResults.list.data">
+        <img ng-src="{{manga.image}}" class="md-card-image" alt="Washed Out">
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">In-card mixed actions</span>
+                <h3>{{manga.title}}</h3>
+                <h3>Chapters: {{manga.chapters}}</h3>
             </md-card-title-text>
             <md-card-icon-actions>
                     <md-button class="md-icon-button" aria-label="Favorite">
