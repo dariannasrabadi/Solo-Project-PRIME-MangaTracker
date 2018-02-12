@@ -36,4 +36,18 @@ router.post('/', (req, res) => { //Start post of add new favorites.
         });
 }); // end post of add new favorites.
 
+router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL Database.
+    let queryText = `SELECT * FROM favorites
+                     WHERE user_id = ${req.user.id};`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
+    pool.query(queryText)
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((err) => {
+            console.log('Error making get favorites query', err);
+            res.sendStatus(500);
+        });
+}); // end of GET to retrieve favorites from SQL Database
+
+
 module.exports = router;

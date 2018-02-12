@@ -4,14 +4,14 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
     //User Auth Functions (Verify user is logged in, User can log out)
     self.userService = UserService;
     self.userObject = UserService.userObject;
+    
+    //this is used for the search results from M.A.L. API.
     self.mangaResults = MangaService.mangaResults;
 
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) {
         MangaService.searchManga(searchInput);
     }
-
-    self.imageTest = 'https://umbra.nascom.nasa.gov/images/latest_aia_211_tn.gif'
 
     self.addFavorite = function(mangaInfo) {
         MangaService.addFavorite(mangaInfo);
