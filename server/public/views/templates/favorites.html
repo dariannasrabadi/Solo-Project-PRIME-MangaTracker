@@ -1,6 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
+<h2><input type="text" placeholder="Filter Favorites" ng-model="query"></h2>
 <div class="cardContainer" layout="row">
-    <md-card class="cards" ng-repeat="favorites in vm.userFavorites.list.data.rows">
+    <md-card class="cards" ng-repeat="favorites in vm.userFavorites.list.data.rows | filter:query">
         <img ng-src="{{favorites.manga_image_url}}" class="md-card-image" alt="Washed Out">
         <md-card-title>
             <md-card-title-text>
