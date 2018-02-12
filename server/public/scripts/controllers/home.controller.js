@@ -10,4 +10,6 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
         MangaService.searchManga(searchInput);
     }
 
+    self.imageTest = 'https://umbra.nascom.nasa.gov/images/latest_aia_211_tn.gif'
+
 }]);

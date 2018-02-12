@@ -1,4 +1,16 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-    <!-- To Be Filled With Genres -->
+<div class="cardContainer">
+    <md-card>
+        <img ng-src="{{vm.imageTest}}" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">In-card mixed actions</span>
+            </md-card-title-text>
+            <md-card-icon-actions>
+                    <md-button class="md-icon-button" aria-label="Favorite">
+                        <md-icon md-svg-icon="../../styles/icons/favorite.svg"></md-icon>
+                    </md-button>
+                </md-card-icon-actions>
+        </md-card-title>
+    </md-card>
 </div>
