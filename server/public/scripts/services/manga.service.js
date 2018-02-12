@@ -15,6 +15,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             })
     };
 
+    //Delete this after done with testing
     self.searchManga()
 
 }]);
