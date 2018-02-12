@@ -92,16 +92,20 @@ p {
 }
 
 #logOut {
-  margin-top: 15px;
-  margin-left: 5px;
+    margin-top: 15px;
+    margin-left: 5px;
 }
 
 .cardContainer {
-    min-width: 300px;
-    min-height: 300px
-  }
-  
-  .container img {
-    max-height: 100%;
-    max-width: 100%;
-  }
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.cards {
+    width: 30%;
+    min-height: 300px;
+}
+
+.cards img {
+   max-height: 350px;
+}
