@@ -9,6 +9,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
         $http.get(`/api/manga/${searchInput}`)
             .then(response => {
                 console.log(response);
+                $location.path("/results");
             })
             .catch(error => {
                 console.log(error);

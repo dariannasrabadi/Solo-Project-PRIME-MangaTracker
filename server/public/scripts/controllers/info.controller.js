@@ -5,4 +5,8 @@ myApp.controller('InfoController', ['UserService', function(UserService) {
     self.userService = UserService;
     self.userObject = UserService.userObject;
 
+    //Sending search inquiry to the service to perform get request.
+    self.searchManga = function(searchInput) {
+        MangaService.searchManga(searchInput);
+    }
 }]);
