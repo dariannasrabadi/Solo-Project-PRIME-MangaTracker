@@ -31,6 +31,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             })
             .catch(error => {
                 console.log('Error on adding to favorites.', error);
+                alert(`You already have ${mangaInfo.title} on your favorites!`)
             })
     }
 
@@ -48,6 +49,18 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
     // NOTE TO SELF; THIS CURRENTLY ONLY RELOADS ONCE. IF THE USER LOGS OUT AND SOMEONE ELSE LOGS IN WITHOUT REFRESHING THE PAGE THEIR FAVORITES WONT LOAD.
     // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
     self.getFavorites()
+
+
+    self.editChapterRead = function(chapterRead) {
+        console.log('Edited last chapter read: ', chapterRead.newChapterRead);
+        $http.put(`/api/manga`, chapterRead)
+            .then(response => {
+                console.log('User Favorites', response);
+            })
+            .catch(error => {
+                console.log('Error retrieving favorites', error);
+            })
+    }
 
 }]);
   

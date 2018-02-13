@@ -49,5 +49,10 @@ router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL D
         });
 }); // end of GET to retrieve favorites from SQL Database
 
+router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the SQL Database.
+    console.log('This is the req.body for PUT update: ',req.body);
+    
+}); // end of PUT to edit last chapter read on the SQL Database
+
 
 module.exports = router;

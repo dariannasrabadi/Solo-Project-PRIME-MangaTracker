@@ -1,5 +1,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <h2><input type="text" placeholder="Filter Favorites" ng-model="query"></h2>
+<!-- Card for each Favorite -->
 <div class="cardContainer" layout="row">
     <md-card class="cards" ng-repeat="favorites in vm.userFavorites.list.data.rows | filter:query">
         <img ng-src="{{favorites.manga_image_url}}" class="md-card-image" alt="Washed Out">
@@ -7,7 +8,16 @@
             <md-card-title-text>
                 <h3>{{favorites.manga_name}}</h3>
                 <h3>Latest Chapter: {{favorites.latest_chapter}}</h3>
-                <h3>Last Chapter Read: {{favorites.last_chapter_read}}</h3>
+                <h3 ng-if="!favorites.hide">Last Chapter Read: {{favorites.last_chapter_read}}</h3>
+                <!-- upon click shows the submit/cancel buttons, edit input and hides last chapter read and edit icon.) -->
+                <md-button class="md-icon-button" aria-label="Edit" ng-click="favorites.hide = !favorites.hide" ng-hide="favorites.hide">
+                    <md-icon md-svg-icon="../../styles/icons/edit.svg"></md-icon>
+                </md-button>
+                <h3 ng-if="favorites.hide" ><input type="number" ng-value={{favorites.last_chapter_read}} ng-model="favorites.newChapterRead"></h3>
+                <!-- upon click hides the submit/cancel buttons & edit input and reshows edit icon & updated latest chapter read. Also sends this mangas information to client) -->
+                <md-button ng-if="favorites.hide" class="md-raised md-primary" ng-click="vm.editChapterRead(favorites); favorites.hide = !favorites.hide">Submit</md-button>
+                <!-- upon click hides the submit/cancel buttons, edit input and reshows edit icon & updated latest chapter read.) -->
+                <md-button ng-if="favorites.hide" class="md-raised" ng-click="favorites.hide = !favorites.hide">Cancel</md-button>
             </md-card-title-text>
         </md-card-title>
     </md-card>
