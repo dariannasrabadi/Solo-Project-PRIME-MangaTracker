@@ -14,5 +14,11 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function(
     }
 
     self.editChapterRead = function(chapterRead) {
-        MangaService.editChapterRead(chapterRead);    }
+        MangaService.editChapterRead(chapterRead);    
+    }
+
+    self.removeFavorite = function(toDelete) {
+        MangaService.removeFavorite(toDelete)
+    }
+
 }]);

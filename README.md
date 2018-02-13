@@ -23,7 +23,8 @@ High level list of items completed.
 - [x] Home View & Search Functionality
 - [x] Results View & Favorites Functionality
 - [x] Favorites View & Filter
-- [ ] Latest Chapter & Last Chapter Read Functionality
+- [x] Latest Chapter & Last Chapter Read Functionality
+- [ ] Remove from favorites feature
 - [ ] Detailed Manga Information View
 - [ ] Add Genres to home view
 - [ ] Genre Results View 
