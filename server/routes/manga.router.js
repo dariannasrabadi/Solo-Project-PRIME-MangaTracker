@@ -65,4 +65,19 @@ router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the
 }); // end of PUT to edit last chapter read on the SQL Database
 
 
+router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to the SQL Database.
+    // console.log('This is the req.body for DELETE: ',req.params.mangaId);
+    let queryText = `DELETE FROM favorites
+                     WHERE user_id = ${req.user.id} AND manga_id = ${req.params.mangaId} ;`    //User ID to determine the user that is logged on so it can delete their target manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+    pool.query(queryText)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            // console.log('Error making delete favorite query', err);
+            res.sendStatus(500);
+        });    
+}); // end of DELETE manga request to the SQL Database
+
+
 module.exports = router;
