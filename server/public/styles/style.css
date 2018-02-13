@@ -71,7 +71,6 @@ body, html {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 .navList li a:hover {
   text-decoration: underline;
   color: #1e9406;
@@ -102,10 +101,15 @@ p {
 }
 
 .cards {
-    width: 30%;
+    width: 23%;
+    min-width: 225px;
     min-height: 300px;
 }
 
 .cards img {
    max-height: 350px;
+}
+
+.cards h3 {
+    margin: 10px 0 0 0;
 }

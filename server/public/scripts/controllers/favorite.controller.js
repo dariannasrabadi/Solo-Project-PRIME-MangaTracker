@@ -13,6 +13,6 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function(
         MangaService.searchManga(searchInput);
     }
 
-    
-
+    self.editChapterRead = function(chapterRead) {
+        MangaService.editChapterRead(chapterRead);    }
 }]);
