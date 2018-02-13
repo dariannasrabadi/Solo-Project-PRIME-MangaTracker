@@ -50,8 +50,18 @@ router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL D
 }); // end of GET to retrieve favorites from SQL Database
 
 router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the SQL Database.
-    console.log('This is the req.body for PUT update: ',req.body);
-    
+    // console.log('This is the req.body for PUT update: ',req.body);
+    let queryText = `UPDATE favorites
+                     SET last_chapter_read = ${req.body.newChapterRead}
+                     WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+    pool.query(queryText)
+        .then((result) => {
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('Error making get favorites query', err);
+            res.sendStatus(500);
+        });    
 }); // end of PUT to edit last chapter read on the SQL Database
 
 

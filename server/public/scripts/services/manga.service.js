@@ -56,6 +56,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
         $http.put(`/api/manga`, chapterRead)
             .then(response => {
                 console.log('User Favorites', response);
+                self.getFavorites()
             })
             .catch(error => {
                 console.log('Error retrieving favorites', error);
