@@ -17,6 +17,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             })
             .catch(error => {
                 console.log(error);
+                alert('There was an error with your search request, please try a different keyword')
             })
     }; //Search manga function (Used in all views except register & login)
 
@@ -25,7 +26,8 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
         $http.post(`/api/manga`, mangaInfo)
             .then(response => {
                 console.log('added', response);   
-                alert(`${mangaInfo.title} has been added to favorites!`)             
+                alert(`${mangaInfo.title} has been added to favorites!`) 
+                self.getFavorites()            
             })
             .catch(error => {
                 console.log('Error on adding to favorites.', error);
