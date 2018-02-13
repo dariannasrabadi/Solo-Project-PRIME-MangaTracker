@@ -34,6 +34,7 @@ High level list of items completed.
 
 Features that you would like to add at some point in the future.
 
+- [ ] Auto Update Manga Last Chapter
 - [ ] Search Functionality on Login view
 - [ ] Sorting Option on Results/Favorites view
 - [ ] Manga Last Chapter edit button
