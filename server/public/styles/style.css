@@ -107,9 +107,13 @@ p {
 }
 
 .cards img {
-   max-height: 350px;
+   height: 350px;
 }
 
 .cards h3 {
     margin: 10px 0 0 0;
+}
+
+md-input-container.md-block.flex-gt-sm {
+    margin: 5px 0 0 0;
 }

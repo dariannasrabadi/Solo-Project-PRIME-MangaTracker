@@ -13,7 +13,13 @@
                 <md-button class="md-icon-button" aria-label="Edit" ng-click="favorites.hide = !favorites.hide" ng-hide="favorites.hide">
                     <md-icon md-svg-icon="../../styles/icons/edit.svg"></md-icon>
                 </md-button>
-                <h3 ng-if="favorites.hide" ><input type="number" ng-value={{favorites.last_chapter_read}} ng-model="favorites.newChapterRead"></h3>
+                <md-button ng-if="!favorites.hide" class="md-raised md-warning" ng-click="vm.removeFavorite(favorites)">Remove Favorite</md-button>
+                <h3 ng-if="favorites.hide" >
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Last Chapter Read: {{favorites.last_chapter_read}}</label>
+                        <input type="number" ng-model="favorites.newChapterRead">
+                    </md-input-container>
+                </h3>
                 <!-- upon click hides the submit/cancel buttons & edit input and reshows edit icon & updated latest chapter read. Also sends this mangas information to client) -->
                 <md-button ng-if="favorites.hide" class="md-raised md-primary" ng-click="vm.editChapterRead(favorites); favorites.hide = !favorites.hide">Submit</md-button>
                 <!-- upon click hides the submit/cancel buttons, edit input and reshows edit icon & updated latest chapter read.) -->

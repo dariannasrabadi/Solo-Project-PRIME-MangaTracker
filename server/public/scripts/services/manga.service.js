@@ -44,14 +44,14 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             .catch(error => {
                 console.log('Error retrieving favorites', error);
             })
-    }; //get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
+    }; //End of get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
 
     // NOTE TO SELF; THIS CURRENTLY ONLY RELOADS ONCE. IF THE USER LOGS OUT AND SOMEONE ELSE LOGS IN WITHOUT REFRESHING THE PAGE THEIR FAVORITES WONT LOAD.
     // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
     self.getFavorites()
 
 
-    self.editChapterRead = function(chapterRead) {
+    self.editChapterRead = function(chapterRead) { //Start of edit last chapter read function (Used in favorites view)
         console.log('Edited last chapter read: ', chapterRead.newChapterRead);
         $http.put(`/api/manga`, chapterRead)
             .then(response => {
@@ -61,7 +61,12 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             .catch(error => {
                 console.log('Error retrieving favorites', error);
             })
-    }
+    } //End of edit last chapter read function (Used in favorites view)
+
+
+    self.removeFavorite = function(toDelete) { // Start of remove selected manga function (used in favorites view)
+        console.log('this is the data to delete: ', toDelete);
+    }// End of remove selected manga function (used in favorites view)
 
 }]);
   
