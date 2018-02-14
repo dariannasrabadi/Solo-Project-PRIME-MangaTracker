@@ -1,4 +1,10 @@
 <div ng-include="'views/partials/nav.html'"></div>
+
+<!-- For when the user goes to this page without previously searching for a manga.  -->
+<div ng-if="!vm.mangaResults.list.data">
+    <h1>Will replace this text with an image or something stating something like: Why are you here? Go search for a manga first.</h1>
+</div>
+
 <!-- Card for each manga -->
 <div class="cardContainer" layout="row">
     <md-card class="cards" ng-repeat="manga in vm.mangaResults.list.data">

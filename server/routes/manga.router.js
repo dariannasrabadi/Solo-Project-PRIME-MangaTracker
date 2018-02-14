@@ -24,8 +24,8 @@ router.post('/', (req, res) => { //Start post of add new favorites.
     // console.log('Manga Information', req.body);
     // please see my-manga-tracker.sql for how the table is created.
     // Checking for duplicates per user is done on the said .sql sheet. 
-    let queryText = `INSERT INTO favorites (manga_name, manga_id, user_id, manga_image_url, latest_chapter)
-                     VALUES ('${req.body.title}', '${req.body.id}', '${req.user.id}', '${req.body.image}', '${req.body.chapters}');`
+    let queryText = `INSERT INTO favorites (manga_name, manga_id, user_id, manga_image_url, latest_chapter, synopsis, status)
+                     VALUES ('${req.body.title}', '${req.body.id}', '${req.user.id}', '${req.body.image}', '${req.body.chapters}', '${req.body.synopsis}', '${req.body.status}');`
     pool.query(queryText)
         .then((result) => {
             res.sendStatus(200);
@@ -38,7 +38,8 @@ router.post('/', (req, res) => { //Start post of add new favorites.
 
 router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL Database.
     let queryText = `SELECT * FROM favorites
-                     WHERE user_id = ${req.user.id};`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
+                     WHERE user_id = ${req.user.id}
+                     ORDER BY manga_name;`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
     pool.query(queryText)
         .then((result) => {
             res.send(result);
