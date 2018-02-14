@@ -13,7 +13,7 @@
                 <md-button class="md-icon-button" aria-label="Edit" ng-click="favorites.hide = !favorites.hide" ng-hide="favorites.hide">
                     <md-icon md-svg-icon="../../styles/icons/edit.svg"></md-icon>
                 </md-button>
-                <md-button ng-if="!favorites.hide" class="md-raised md-warning" ng-click="vm.removeFavorite(favorites)">Remove Favorite</md-button>
+                <md-button ng-if="!favorites.hide" class="md-raised md-warn" ng-click="vm.removeFavorite(favorites)">Remove Favorite</md-button>
                 <h3 ng-if="favorites.hide" >
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Last Chapter Read: {{favorites.last_chapter_read}}</label>

@@ -4,7 +4,8 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
     //User Auth Functions (Verify user is logged in, User can log out)
     self.userService = UserService;
     self.userObject = UserService.userObject;
-    
+    self.detailsPage = MangaService.detailsPage;
+
     //this is used for the search results from M.A.L. API.
     self.mangaResults = MangaService.mangaResults;
 
@@ -15,6 +16,12 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
 
     self.addFavorite = function(mangaInfo) {
         MangaService.addFavorite(mangaInfo);
+    }
+
+    self.mangaDetail = function(manga) {
+        console.log(manga);
+        
+        MangaService.mangaDetail(manga);
     }
 
 }]);

@@ -1,0 +1,19 @@
+<div ng-include="'views/partials/nav.html'"></div>
+<div class="container">
+
+    <div ng-if="vm.detailsPage" layout="row" class="detailsDiv">
+        <div id="detailsBody"> 
+            <h1>{{vm.detailsPage.title}}</h1>
+            <!-- Have to try to find a way to make synopsis display the HTML elements integrated into it -->
+            <p>{{vm.detailsPage.synopsis}}</p>
+        </div>
+        <div id="detailsImg">
+            <!-- Getting a 404 error on the console at the moment when the page loads, but it doesnt affect anything. -->
+            <img src="{{vm.detailsPage.image}}" alt="">
+            <p>Status: {{vm.detailsPage.status}}</p>
+            <p>Number of Chapters: {{vm.detailsPage.chapters}}</p>
+            <md-button class="md-raised md-primary" id="addToFavorite" ng-click="vm.addFavorite(vm.detailsPage)">Add to Favorites</md-button>
+        </div>
+    </div>
+
+</div>

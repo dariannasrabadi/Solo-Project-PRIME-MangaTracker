@@ -4,6 +4,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
 
     self.mangaResults = { list: [] }
     self.userFavorites = { list: [] }
+    self.detailsPage;
 
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) { //Search manga function (Used in all views except register & login)
@@ -77,6 +78,13 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 })
         }
     }// End of remove selected manga function (used in favorites view)
+
+
+    self.mangaDetail = function(manga) {
+        $location.path("/mangainfo");
+        self.detailsPage = manga;
+    }
+
 
 }]);
   

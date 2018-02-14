@@ -85,7 +85,7 @@ align-content: center;
   float: right;
 }
 
-p {
+li p {
   color: white;
   font-size: 20px
 }
@@ -116,4 +116,18 @@ p {
 
 md-input-container.md-block.flex-gt-sm {
     margin: 5px 0 0 0;
+}
+
+.detailsDiv {
+    padding-top: 20px;
+}
+
+#detailsBody {
+    width: 78%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+#addToFavorite {
+    background-color: #1e9406;
 }
