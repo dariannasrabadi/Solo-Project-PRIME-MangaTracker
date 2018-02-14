@@ -85,7 +85,7 @@ align-content: center;
   float: right;
 }
 
-p {
+li p {
   color: white;
   font-size: 20px
 }
@@ -116,4 +116,32 @@ p {
 
 md-input-container.md-block.flex-gt-sm {
     margin: 5px 0 0 0;
+}
+
+.detailsDiv {
+    padding-top: 20px;
+}
+
+#detailsBody {
+    width: 70%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+#detailsImg {
+    width: 25%;
+}
+
+#addToFavorite {
+    background-color: #1e9406;
+}
+
+/* for manga details page */
+.detailImage{
+    width: 90%;
+    max-height: 350px;
+}
+
+/* all images should be clickable */
+img {
+    cursor: pointer;
 }

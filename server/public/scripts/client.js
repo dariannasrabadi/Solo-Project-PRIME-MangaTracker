@@ -41,17 +41,26 @@ myApp.config(['$routeProvider', '$locationProvider', function($routeProvider, $l
                 return UserService.getuser();
             }
         }
-      })
+    })
+    .when('/mangainfo', {
+        templateUrl: '/views/templates/manga.details.html',
+        controller: 'HomeController as vm',
+        resolve: {
+            getuser : function(UserService){
+                return UserService.getuser();
+            }
+        }
+    })
     .when('/favorites', {
         templateUrl: '/views/templates/favorites.html',
         controller: 'FavoriteController as vm',
         resolve: {
             getuser : function(UserService){
                 return UserService.getuser();
+            }
         }
-      }
     })
     .otherwise({
-      template: '<h1>404</h1>'
+        template: '<h1>404</h1>'
     });
 }]);

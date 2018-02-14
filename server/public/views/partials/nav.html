@@ -1,13 +1,14 @@
 <div class="navbar">
   <div class="container">
     <!-- Filler Logo -->
-    <img src="https://www.shareicon.net/data/128x128/2016/11/15/853200_religion_512x512.png">
+    <a href="#!home"><img src="https://www.shareicon.net/data/128x128/2016/11/15/853200_religion_512x512.png"></a>
     <ul class="navList">
       <!-- View Links -->
       <li><a href="#!home">Home</a></li>
       <li><a href="#!favorites">Favorites</a></li>
       <li><a href="#!info">Technologies</a></li>
       <!-- Universal Search Bar When User is Logged In. -->
+      <!-- Error with search bar. on invalid search results the server will stop. -->
       <span id="searchNav">
         <li><input type="text" placeholder="Search Manga Here" ng-model="searchInput"></li>
         <li><md-button class="md-raised md-primary" ng-click="vm.searchManga(searchInput)">Search</md-button></li>

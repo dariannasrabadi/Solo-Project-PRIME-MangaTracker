@@ -21,4 +21,8 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function(
         MangaService.removeFavorite(toDelete)
     }
 
+    self.favoriteDetail = function(favoriteManga) {
+        // console.log(favoriteManga);
+        MangaService.favoriteDetail(favoriteManga);
+    }
 }]);

@@ -4,7 +4,9 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
 
     self.mangaResults = { list: [] }
     self.userFavorites = { list: [] }
-
+    self.detailsPage;
+    self.favoriteDetailsPage;
+    
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) { //Search manga function (Used in all views except register & login)
         $http.get(`/api/manga/${searchInput}`)
@@ -71,12 +73,30 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 .then(response => {
                     console.log('Success from delete manga: ', response);
                     self.getFavorites()
+                    $location.path("/favorites");
                 })
                 .catch(error => {
                     console.log('Error deleting favorites', error);
                 })
         }
     }// End of remove selected manga function (used in favorites view)
+
+
+    // FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
+
+    // These display all the manga information in the form of object to be placed on the DOM directly.
+
+    self.mangaDetail = function(manga) {
+        self.detailsPage = manga;
+        $location.path("/mangainfo");
+    }
+    
+    self.favoriteDetail = function(favoriteManga) {
+        self.detailsPage = favoriteManga;        
+        $location.path("/mangainfo");
+    }
+
+    // END OF FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
 
 }]);
   
