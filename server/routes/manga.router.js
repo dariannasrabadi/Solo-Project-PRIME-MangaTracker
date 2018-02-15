@@ -3,6 +3,7 @@ const pool = require('../modules/pool.js');
 //Needed to access the REST API of M.A.L.
 const Client = require('node-rest-client').Client;
 const router = express.Router();
+const axios = require('axios')
 
 
 //Setting user and password for M.A.L. authentication, need to place in .env file
@@ -15,11 +16,20 @@ let client = new Client(options_auth);
 /******************************************/
 
 
-
+router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
+    axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
+        .then(response => {
+            console.log('These is the response from mangaeden', response.data.manga);
+            res.send(response.data.manga)
+        })
+        .catch(err => {
+            console.log('Error searching genres mangaeden: ', err);
+            res.sendStatus(500);
+        });
+});
 
 
 /* CANT GET AXIOS TO WORK YET. SO UNABLE TO FIND WAY TO CATCH ERRORS WITH NODE-REST-CLIENT YET. */
-// const axios = require('axios')
 // axios.defaults.headers.common['Authorization'] = options_auth
 // router.get('/:search', (req, res) => { // Start of search results for M.A.L. API.
 //     axios.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, {

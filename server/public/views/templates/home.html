@@ -1,4 +1,45 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-    <!-- To Be Filled With Genres -->
+    <div layout="column" class="genresDivList">
+        <div layout="rows" flex>
+            <button ng-click="vm.searchGenre('Action')">Action</button>
+            <button ng-click="vm.searchGenre('Adult')">Adult</button>
+            <button ng-click="vm.searchGenre('Adventure')">Adventure</button>
+            <button ng-click="vm.searchGenre('Comedy')">Comedy</button>
+            <button ng-click="vm.searchGenre('Doujinshi')">Doujinshi</button>
+            <button ng-click="vm.searchGenre('Drama')">Drama</button>
+            <button ng-click="vm.searchGenre('Ecchi')">Ecchi</button>
+            <button ng-click="vm.searchGenre('Fantasy')">Fantasy</button>
+        </div>
+        <div layout="rows" flex>
+            <button ng-click="vm.searchGenre('Gender Bender')">Gender Bender</button>
+            <button ng-click="vm.searchGenre('Harem')">Harem</button>
+            <button ng-click="vm.searchGenre('Historical')">Historical</button>
+            <button ng-click="vm.searchGenre('Horror')">Horror</button>
+            <button ng-click="vm.searchGenre('Josei')">Josei</button>
+            <button ng-click="vm.searchGenre('Martial Arts')">Martial Arts</button>
+            <button ng-click="vm.searchGenre('Mature')">Mature</button>
+            <button ng-click="vm.searchGenre('Mecha')">Mecha</button>
+        </div>
+        <div layout="rows" flex>
+            <button ng-click="vm.searchGenre('Mystery')">Mystery</button>
+            <button ng-click="vm.searchGenre('One Shot')">One Shot</button>
+            <button ng-click="vm.searchGenre('Psychological')">Psychological</button>
+            <button ng-click="vm.searchGenre('Romance')">Romance</button>
+            <button ng-click="vm.searchGenre('School Life')">School Life</button>
+            <button ng-click="vm.searchGenre('Sci-fi')">Sci-fi</button>
+            <button ng-click="vm.searchGenre('Seinen')">Seinen</button>
+            <button ng-click="vm.searchGenre('Shoujo')">Shoujo</button>
+        </div>
+        <div layout="rows" flex>
+            <button ng-click="vm.searchGenre('Shounen')">Shounen</button>
+            <button ng-click="vm.searchGenre('Slice of Life')">Slice of Life</button>
+            <button ng-click="vm.searchGenre('Sports')">Sports</button>
+            <button ng-click="vm.searchGenre('Supernatural')">Supernatural</button>
+            <button ng-click="vm.searchGenre('Tragedy')">Tragedy</button>
+            <button ng-click="vm.searchGenre('Webtoons')">Webtoons</button>
+            <button ng-click="vm.searchGenre('Yaoi')">Yaoi</button>
+            <button ng-click="vm.searchGenre('Yuri')">Yuri</button>
+        </div>
+    </div>
 </div>

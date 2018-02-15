@@ -18,6 +18,10 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
     self.searchManga = function(searchInput) {
         MangaService.searchManga(searchInput);
     }
+    //Sending genre search inquiry to the service to perform get request.
+    self.searchGenre = function(genre) {
+        MangaService.searchGenre(genre);
+    }
 
     self.addFavorite = function(mangaInfo) {
         MangaService.addFavorite(mangaInfo);
