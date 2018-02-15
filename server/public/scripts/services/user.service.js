@@ -26,10 +26,12 @@ myApp.service('UserService', ['$http', '$location', function($http, $location){
     },
 
     self.logout = function() {
-        console.log('UserService -- logout');
-        $http.get('/api/user/logout').then(function(response) {
-            console.log('UserService -- logout -- logged out');
-            $location.path("/login");
-        });
+        if (confirm('Are you sure you want to Log out?')) {
+            console.log('UserService -- logout');
+            $http.get('/api/user/logout').then(function(response) {
+                console.log('UserService -- logout -- logged out');
+                $location.path("/login");
+            }); 
+        }
     }
 }]);

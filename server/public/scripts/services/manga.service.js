@@ -4,18 +4,27 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
 
     self.mangaResults = { list: [] }
     self.userFavorites = { list: [] }
-    self.detailsPage;
+    self.detailsPage = { list: {} }
     self.favoriteDetailsPage;
+    
+/******************************************/
+/*              GET REQUESTS              */ 
+/******************************************/
     
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) { //Search manga function (Used in all views except register & login)
         $http.get(`/api/manga/${searchInput}`)
             .then(response => {
                 // console.log(response);
-                self.mangaResults.list = response
-                // console.log(self.mangaResults);
-                
-                $location.path("/results");
+                if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
+                    self.mangaResults.list = response
+                    // console.log(self.mangaResults);
+                    $location.path("/results");
+                }
+                else { //This is if the search results into only a single resulting manga. It will go to the manga details page directly. 
+                    self.detailsPage.list = response.data
+                    $location.path("/mangainfo");
+                }                
             })
             .catch(error => {
                 console.log(error);
@@ -23,19 +32,6 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             })
     }; //Search manga function (Used in all views except register & login)
 
-    self.addFavorite = function(mangaInfo) {//Start of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
-        console.log('data to add to the favorites', mangaInfo);
-        $http.post(`/api/manga`, mangaInfo)
-            .then(response => {
-                // console.log('added', response);   
-                alert(`${mangaInfo.title} has been added to favorites!`) 
-                self.getFavorites()            
-            })
-            .catch(error => {
-                console.log('Error on adding to favorites.', error);
-                alert(`You already have ${mangaInfo.title} on your favorites!`)
-            })
-    }//End of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
 
     self.getFavorites = function() { //get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
         $http.get(`/api/manga`)
@@ -52,6 +48,27 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
     // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
     self.getFavorites()
 
+/******************************************/
+/*             POST REQUESTS              */ 
+/******************************************/
+
+    self.addFavorite = function(mangaInfo) {//Start of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
+        console.log('data to add to the favorites', mangaInfo);
+        $http.post(`/api/manga`, mangaInfo)
+            .then(response => {
+                // console.log('added', response);   
+                alert(`${mangaInfo.title} has been added to favorites!`) 
+                self.getFavorites()            
+            })
+            .catch(error => {
+                console.log('Error on adding to favorites.', error);
+                alert(`You already have ${mangaInfo.title} on your favorites!`)
+            })
+    }//End of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
+
+/******************************************/
+/*              PUT REQUESTS              */ 
+/******************************************/
 
     self.editChapterRead = function(chapterRead) { //Start of edit last chapter read function (Used in favorites view)
         // console.log('Edited last chapter read: ', chapterRead.newChapterRead);
@@ -65,6 +82,9 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             })
     } //End of edit last chapter read function (Used in favorites view)
 
+/******************************************/
+/*            DELETE REQUESTS             */ 
+/******************************************/
 
     self.removeFavorite = function(toDelete) { // Start of remove selected manga function (used in favorites view)
         console.log('this is the data to delete: ', toDelete);
@@ -81,18 +101,21 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
         }
     }// End of remove selected manga function (used in favorites view)
 
+/******************************************/
+/*            OTHER FUNCTIONS             */ 
+/******************************************/
 
     // FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
 
     // These display all the manga information in the form of object to be placed on the DOM directly.
 
     self.mangaDetail = function(manga) {
-        self.detailsPage = manga;
+        self.detailsPage.list = manga;
         $location.path("/mangainfo");
     }
     
     self.favoriteDetail = function(favoriteManga) {
-        self.detailsPage = favoriteManga;        
+        self.detailsPage.list = favoriteManga;        
         $location.path("/mangainfo");
     }
 
