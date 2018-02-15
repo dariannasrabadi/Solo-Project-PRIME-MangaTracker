@@ -54,11 +54,11 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
             .then(response => {
                 console.log(response);
                 self.genreResults.list = response
-                // $location.path("/results");         
+                $location.path("/genre");
             })
             .catch(error => {
                 console.log(error);
-                alert('There was an error with your search request, please try a different keyword')
+                alert(`There was an error in retrieving the ${genre} genre results, please try a different one`)
             })
     }; //Search specified genre function (Used in home view and both results views)
     
