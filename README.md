@@ -20,9 +20,11 @@ High level list of items completed.
 
 - [x] Login Page
 - [x] Register Page
-- [ ] Home View & Search Functionality
-- [ ] Results View & Favorites Functionality
-- [ ] Favorites View & Last Chapter Read Functionality
+- [x] Home View & Search Functionality
+- [x] Results View & Favorites Functionality
+- [x] Favorites View & Filter
+- [x] Latest Chapter & Last Chapter Read Functionality
+- [ ] Remove from favorites feature
 - [ ] Detailed Manga Information View
 - [ ] Add Genres to home view
 - [ ] Genre Results View 
@@ -33,6 +35,7 @@ High level list of items completed.
 
 Features that you would like to add at some point in the future.
 
+- [ ] Auto Update Manga Last Chapter
 - [ ] Search Functionality on Login view
 - [ ] Sorting Option on Results/Favorites view
 - [ ] Manga Last Chapter edit button
