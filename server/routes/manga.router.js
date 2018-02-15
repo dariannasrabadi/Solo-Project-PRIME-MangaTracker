@@ -17,10 +17,18 @@ let client = new Client(options_auth);
 
 
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
+    let dataToReturn = []
     axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
         .then(response => {
-            console.log('These is the response from mangaeden', response.data.manga);
-            res.send(response.data.manga)
+            // console.log('These is the response from mangaeden', response.data.manga);
+            for (let i = 0; i < response.data.manga.length; i++) {
+                if (response.data.manga[i].c.includes(req.params.genre) ) {
+                    // console.log(response.data.manga[i].t);
+                    dataToReturn.push(response.data.manga[i])
+                }
+            }
+            // console.log(dataToReturn);
+            res.send(dataToReturn)
         })
         .catch(err => {
             console.log('Error searching genres mangaeden: ', err);
