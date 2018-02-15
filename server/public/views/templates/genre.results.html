@@ -1,0 +1,18 @@
+<div ng-include="'views/partials/nav.html'"></div>
+
+<!-- For when the user goes to this page without clicking a genre prior to this.-->
+<div ng-if="!vm.genreResults.list.data">
+    <h1>Will replace this text with an image or something stating something like: Why are you here? Go click a genre on the right or search for a manga first.</h1>
+</div>
+
+<!-- Card for each genre manga result -->
+<div class="cardContainer" layout="row">
+    <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data">
+        <img ng-src="{{genre.im}}" class="md-card-image" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
+        <md-card-title>
+            <md-card-title-text>
+                <h3 ng-click="vm.genreDetail(genre.t)">{{genre.t}}</h3>
+            </md-card-title-text>
+        </md-card-title>
+    </md-card>
+</div>

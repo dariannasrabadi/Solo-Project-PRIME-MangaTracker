@@ -3,6 +3,7 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
     var self = this;
 
     self.mangaResults = { list: [] }
+    self.genreResults = { list: [] }
     self.userFavorites = { list: [] }
     self.detailsPage = { list: {} }
     self.favoriteDetailsPage;
@@ -48,6 +49,19 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
     // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
     self.getFavorites()
 
+    self.searchGenre = function(genre) { //Search specified genre function (Used in home view and both results views)
+        $http.get(`/api/manga/genres/${genre}`)
+            .then(response => {
+                console.log(response);
+                self.genreResults.list = response
+                $location.path("/genre");
+            })
+            .catch(error => {
+                console.log(error);
+                alert(`There was an error in retrieving the ${genre} genre results, please try a different one`)
+            })
+    }; //Search specified genre function (Used in home view and both results views)
+    
 /******************************************/
 /*             POST REQUESTS              */ 
 /******************************************/

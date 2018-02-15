@@ -98,6 +98,7 @@ li p {
 .cardContainer {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .cards {
@@ -133,6 +134,14 @@ md-input-container.md-block.flex-gt-sm {
 
 #addToFavorite {
     background-color: #1e9406;
+}
+
+.genresDivList {
+    align-items: center;
+}
+
+.genresDivList button {
+    margin: 10px;
 }
 
 /* for manga details page */

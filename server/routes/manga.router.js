@@ -3,6 +3,7 @@ const pool = require('../modules/pool.js');
 //Needed to access the REST API of M.A.L.
 const Client = require('node-rest-client').Client;
 const router = express.Router();
+const axios = require('axios')
 
 
 //Setting user and password for M.A.L. authentication, need to place in .env file
@@ -15,11 +16,34 @@ let client = new Client(options_auth);
 /******************************************/
 
 
-
+router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
+    let dataToReturn = []
+    axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
+        .then(response => {
+            // console.log('These is the response from mangaeden', response.data.manga);
+            for (let i = 0; i < response.data.manga.length; i++) {
+                if (response.data.manga[i].c.includes(req.params.genre) ) {
+                    // console.log(response.data.manga[i].t);
+                    if (response.data.manga[i].im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
+                        response.data.manga[i].im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
+                    }
+                    else {
+                        response.data.manga[i].im = `https://cdn.mangaeden.com/mangasimg/${response.data.manga[i].im}` //Adding the base http tag for the manga images to display on genre results page.
+                    }
+                    dataToReturn.push(response.data.manga[i])
+                }
+            }
+            // console.log(dataToReturn);
+            res.send(dataToReturn)
+        })
+        .catch(err => {
+            console.log('Error searching genres mangaeden: ', err);
+            res.sendStatus(500);
+        });
+});
 
 
 /* CANT GET AXIOS TO WORK YET. SO UNABLE TO FIND WAY TO CATCH ERRORS WITH NODE-REST-CLIENT YET. */
-// const axios = require('axios')
 // axios.defaults.headers.common['Authorization'] = options_auth
 // router.get('/:search', (req, res) => { // Start of search results for M.A.L. API.
 //     axios.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, {
@@ -43,9 +67,9 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
     client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
         // parsed response body as js object 
         //Adding the .manga.entry directly opens each manga details right away.
-        console.log('data from client get',data.manga.entry);
+        // console.log('data from client get',data.manga.entry);
         res.send(data.manga.entry);
-        console.log('this is the raw response',response);
+        // console.log('this is the raw response',response);
     });
 }); // end get search results
 
