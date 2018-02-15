@@ -17,29 +17,33 @@ let client = new Client(options_auth);
 
 
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
-    let dataToReturn = []
-    axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
-        .then(response => {
-            // console.log('These is the response from mangaeden', response.data.manga);
-            for (let i = 0; i < response.data.manga.length; i++) {
-                if (response.data.manga[i].c.includes(req.params.genre) ) {
-                    // console.log(response.data.manga[i].t);
-                    if (response.data.manga[i].im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
-                        response.data.manga[i].im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
+    if (req.isAuthenticated()) {
+        let dataToReturn = []
+        axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
+            .then(response => {
+                // console.log('These is the response from mangaeden', response.data.manga);
+                for (let i = 0; i < response.data.manga.length; i++) {
+                    if (response.data.manga[i].c.includes(req.params.genre) ) {
+                        // console.log(response.data.manga[i].t);
+                        if (response.data.manga[i].im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
+                            response.data.manga[i].im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
+                        }
+                        else {
+                            response.data.manga[i].im = `https://cdn.mangaeden.com/mangasimg/${response.data.manga[i].im}` //Adding the base http tag for the manga images to display on genre results page.
+                        }
+                        dataToReturn.push(response.data.manga[i])
                     }
-                    else {
-                        response.data.manga[i].im = `https://cdn.mangaeden.com/mangasimg/${response.data.manga[i].im}` //Adding the base http tag for the manga images to display on genre results page.
-                    }
-                    dataToReturn.push(response.data.manga[i])
                 }
-            }
-            // console.log(dataToReturn);
-            res.send(dataToReturn)
-        })
-        .catch(err => {
-            console.log('Error searching genres mangaeden: ', err);
-            res.sendStatus(500);
-        });
+                // console.log(dataToReturn);
+                res.send(dataToReturn)
+            })
+            .catch(err => {
+                console.log('Error searching genres mangaeden: ', err);
+                res.sendStatus(500);
+            });
+    } else {
+        res.sendStatus(403);
+    }
 });
 
 
@@ -64,28 +68,36 @@ router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.
 
 
 router.get('/:search', (req, res) => { // Start of search results for M.A.L. API.
-    client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
-        // parsed response body as js object 
-        //Adding the .manga.entry directly opens each manga details right away.
-        // console.log('data from client get',data.manga.entry);
-        res.send(data.manga.entry);
-        // console.log('this is the raw response',response);
-    });
+    if (req.isAuthenticated()) {
+        client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
+            // parsed response body as js object 
+            //Adding the .manga.entry directly opens each manga details right away.
+            // console.log('data from client get',data.manga.entry);
+            res.send(data.manga.entry);
+            // console.log('this is the raw response',response);
+        });
+    } else {
+        res.sendStatus(403);
+    }
 }); // end get search results
 
 
 router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL Database.
-    let queryText = `SELECT * FROM favorites
-                     WHERE user_id = ${req.user.id}
-                     ORDER BY manga_name;`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
-    pool.query(queryText)
-        .then((result) => {
-            res.send(result);
-        })
-        .catch((err) => {
-            console.log('Error making get favorites query', err);
-            res.sendStatus(500);
-        });
+    if (req.isAuthenticated()) {
+        let queryText = `SELECT * FROM favorites
+                        WHERE user_id = ${req.user.id}
+                        ORDER BY manga_name;`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
+        pool.query(queryText)
+            .then((result) => {
+                res.send(result);
+            })
+            .catch((err) => {
+                console.log('Error making get favorites query', err);
+                res.sendStatus(500);
+            });
+    } else {
+        res.sendStatus(403);
+    }
 }); // end of GET to retrieve favorites from SQL Database
 
 /******************************************/
@@ -93,19 +105,23 @@ router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL D
 /******************************************/
 
 router.post('/', (req, res) => { //Start post of add new favorites.
-    // console.log('Manga Information', req.body);
-    // please see my-manga-tracker.sql for how the table is created.
-    // Checking for duplicates per user is done on the said .sql sheet. 
-    let queryText = `INSERT INTO favorites (manga_name, manga_id, user_id, manga_image_url, latest_chapter, synopsis, status)
-                     VALUES ('${req.body.title}', '${req.body.id}', '${req.user.id}', '${req.body.image}', '${req.body.chapters}', '${req.body.synopsis}', '${req.body.status}');`
-    pool.query(queryText)
-        .then((result) => {
-            res.sendStatus(200);
-        })
-        .catch((err) => {
-            console.log('Error making update query', err);
-            res.sendStatus(500);
-        });
+    if (req.isAuthenticated()) {
+        // console.log('Manga Information', req.body);
+        // please see my-manga-tracker.sql for how the table is created.
+        // Checking for duplicates per user is done on the said .sql sheet. 
+        let queryText = `INSERT INTO favorites (manga_name, manga_id, user_id, manga_image_url, latest_chapter, synopsis, status)
+                        VALUES ('${req.body.title}', '${req.body.id}', '${req.user.id}', '${req.body.image}', '${req.body.chapters}', '${req.body.synopsis}', '${req.body.status}');`
+        pool.query(queryText)
+            .then((result) => {
+                res.sendStatus(200);
+            })
+            .catch((err) => {
+                console.log('Error making update query', err);
+                res.sendStatus(500);
+            });
+    } else {
+        res.sendStatus(403);
+    }
 }); // end post of add new favorites.
 
 /******************************************/
@@ -113,18 +129,22 @@ router.post('/', (req, res) => { //Start post of add new favorites.
 /******************************************/
 
 router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the SQL Database.
-    // console.log('This is the req.body for PUT update: ',req.body);
-    let queryText = `UPDATE favorites
-                     SET last_chapter_read = ${req.body.newChapterRead}
-                     WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
-    pool.query(queryText)
-        .then((result) => {
-            res.sendStatus(200);
-        })
-        .catch((err) => {
-            console.log('Error making get favorites query', err);
-            res.sendStatus(500);
-        });    
+    if (req.isAuthenticated()) {
+        // console.log('This is the req.body for PUT update: ',req.body);
+        let queryText = `UPDATE favorites
+                        SET last_chapter_read = ${req.body.newChapterRead}
+                        WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        pool.query(queryText)
+            .then((result) => {
+                res.sendStatus(200);
+            })
+            .catch((err) => {
+                console.log('Error making get favorites query', err);
+                res.sendStatus(500);
+            });    
+    } else {
+        res.sendStatus(403);
+    }
 }); // end of PUT to edit last chapter read on the SQL Database
 
 /******************************************/
@@ -132,17 +152,21 @@ router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the
 /******************************************/
 
 router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to the SQL Database.
-    // console.log('This is the req.body for DELETE: ',req.params.mangaId);
-    let queryText = `DELETE FROM favorites
-                     WHERE user_id = ${req.user.id} AND manga_id = ${req.params.mangaId} ;`    //User ID to determine the user that is logged on so it can delete their target manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
-    pool.query(queryText)
-        .then((result) => {
-            res.sendStatus(200);
-        })
-        .catch((err) => {
-            // console.log('Error making delete favorite query', err);
-            res.sendStatus(500);
-        });    
+    if (req.isAuthenticated()) {
+        // console.log('This is the req.body for DELETE: ',req.params.mangaId);
+        let queryText = `DELETE FROM favorites
+                        WHERE user_id = ${req.user.id} AND manga_id = ${req.params.mangaId} ;`    //User ID to determine the user that is logged on so it can delete their target manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        pool.query(queryText)
+            .then((result) => {
+                res.sendStatus(200);
+            })
+            .catch((err) => {
+                // console.log('Error making delete favorite query', err);
+                res.sendStatus(500);
+            });    
+    } else {
+        res.sendStatus(403);
+    }
 }); // end of DELETE manga request to the SQL Database
 
 

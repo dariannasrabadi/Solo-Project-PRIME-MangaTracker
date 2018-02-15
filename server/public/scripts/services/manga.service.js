@@ -28,8 +28,12 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 }                
             })
             .catch(error => {
-                console.log(error);
-                alert('There was an error with your search request, please try a different keyword')
+                if (error.status === 403) {
+                    $location.path("/login");
+                }
+                else {
+                    alert('There was an error with your search request, please try a different keyword')
+                }
             })
     }; //Search manga function (Used in all views except register & login)
 
@@ -41,7 +45,12 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 self.userFavorites.list = response
             })
             .catch(error => {
-                console.log('Error retrieving favorites', error);
+                if (error.status === 403) {
+                    $location.path("/login");
+                }
+                else {
+                    console.log('Error retrieving favorites', error);
+                }
             })
     }; //End of get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
 
@@ -57,8 +66,13 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 $location.path("/genre");
             })
             .catch(error => {
-                console.log(error);
-                alert(`There was an error in retrieving the ${genre} genre results, please try a different one`)
+                if (error.status === 403) {
+                    $location.path("/login");
+                }
+                else {
+                    console.log(error);
+                    alert(`There was an error in retrieving the ${genre} genre results, please try a different one`)
+                }
             })
     }; //Search specified genre function (Used in home view and both results views)
     
@@ -75,8 +89,13 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 self.getFavorites()            
             })
             .catch(error => {
-                console.log('Error on adding to favorites.', error);
-                alert(`You already have ${mangaInfo.title} on your favorites!`)
+                if (error.status === 403) {
+                    $location.path("/login");
+                }
+                else {
+                    console.log('Error on adding to favorites.', error);
+                    alert(`You already have ${mangaInfo.title} on your favorites!`)
+                }
             })
     }//End of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
 
@@ -91,8 +110,13 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                 console.log('Success from update manga: ', response);
                 self.getFavorites()
             })
-            .catch(error => {
-                console.log('Error updating favorites', error);
+            .catch(error => {  
+                if (error.status === 403) {
+                    $location.path("/login");
+                }
+                else {
+                    console.log('Error updating favorites', error);
+                }
             })
     } //End of edit last chapter read function (Used in favorites view)
 
@@ -110,7 +134,12 @@ myApp.service('MangaService', ['$http', '$location', function($http, $location){
                     $location.path("/favorites");
                 })
                 .catch(error => {
-                    console.log('Error deleting favorites', error);
+                    if (error.status === 403) {
+                        $location.path("/login");
+                    }
+                    else {
+                        console.log('Error deleting favorites', error);
+                    }
                 })
         }
     }// End of remove selected manga function (used in favorites view)
