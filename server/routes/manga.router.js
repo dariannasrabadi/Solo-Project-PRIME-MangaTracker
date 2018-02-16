@@ -19,7 +19,7 @@ let client = new Client(options_auth);
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         let dataToReturn = []
-        axios.get(`https://www.mangaeden.com/api/list/0/?p=0`)
+        axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1000`)
             .then(response => {
                 // console.log('These is the response from mangaeden', response.data.manga);
                 for (let i = 0; i < response.data.manga.length; i++) {

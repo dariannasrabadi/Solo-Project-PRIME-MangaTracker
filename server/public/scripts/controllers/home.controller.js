@@ -14,8 +14,6 @@ myApp.controller('HomeController', ['UserService', 'MangaService', function(User
     // For information displayed directly to the manga details page.
     self.detailsPage = MangaService.detailsPage;
 
-    
-
     //Sending search inquiry to the service to perform get request.
     self.searchManga = function(searchInput) {
         MangaService.searchManga(searchInput);

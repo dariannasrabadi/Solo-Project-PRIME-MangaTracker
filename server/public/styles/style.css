@@ -47,7 +47,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  /* background-color: #555454; */
   width: 100%;
   border-radius: 0px;
 }
@@ -65,7 +65,7 @@ body, html {
 
 .navList li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -76,19 +76,15 @@ body, html {
   color: #1e9406;
 }
 
+/* #userName {
+    color: white;
+} */
+
 /* cant get it to display how I want it to yet */
 /* #searchNav {
 align-content: center;
 } */
 
-#userNav {
-  float: right;
-}
-
-li p {
-  color: white;
-  font-size: 20px
-}
 
 #logOut {
     margin-top: 15px;
@@ -154,3 +150,29 @@ md-input-container.md-block.flex-gt-sm {
 img {
     cursor: pointer;
 }
+
+
+
+.fullLogo {
+    top: 15%;
+    left: 32%;
+    position: absolute;
+}
+
+.formWrapper {     
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -150px;
+
+    /* display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+    height: 100%; */
+}
+
