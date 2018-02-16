@@ -12,31 +12,30 @@ let options_auth = { user: process.env.MAL_USER, password: process.env.MAL_PASSW
 let client = new Client(options_auth);
 
 /******************************************/
-/*            GET REQUESTS              */ 
+/*            GET REQUESTS              */
 /******************************************/
 
 
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         let dataToReturn = []
-        axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1000`)
-            .then(response => {
-                // console.log('These is the response from mangaeden', response.data.manga);
-                for (let i = 0; i < response.data.manga.length; i++) {
-                    if (response.data.manga[i].c.includes(req.params.genre) ) {
-                        // console.log(response.data.manga[i].t);
-                        if (response.data.manga[i].im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
-                            response.data.manga[i].im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
-                        }
-                        else {
-                            response.data.manga[i].im = `https://cdn.mangaeden.com/mangasimg/${response.data.manga[i].im}` //Adding the base http tag for the manga images to display on genre results page.
-                        }
-                        dataToReturn.push(response.data.manga[i])
+        axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1000`).then(response => {
+            // console.log('These is the response from mangaeden', response.data.manga);
+            for (let i = 0; i < response.data.manga.length; i++) {
+                if (response.data.manga[i].c.includes(req.params.genre)) {
+                    // console.log(response.data.manga[i].t);
+                    if (response.data.manga[i].im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
+                        response.data.manga[i].im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
                     }
+                    else {
+                        response.data.manga[i].im = `https://cdn.mangaeden.com/mangasimg/${response.data.manga[i].im}` //Adding the base http tag for the manga images to display on genre results page.
+                    }
+                    dataToReturn.push(response.data.manga[i])
                 }
-                // console.log(dataToReturn);
-                res.send(dataToReturn)
-            })
+            }
+            // console.log(dataToReturn);
+            res.send(dataToReturn)
+        })
             .catch(err => {
                 console.log('Error searching genres mangaeden: ', err);
                 res.sendStatus(500);
@@ -72,10 +71,28 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
         client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
             // parsed response body as js object 
             //Adding the .manga.entry directly opens each manga details right away.
-            // console.log('data from client get',data.manga.entry);
-            res.send(data.manga.entry);
+            // console.log('data from client get',data);
+            if (data.hasOwnProperty('manga')) {
+                res.send(data.manga.entry);
+            }
+            else {
+                res.sendStatus(500);
+            }
             // console.log('this is the raw response',response);
+            req.on('error', function (err) {
+                console.log('request error', err);
+                res.sendStatus(501);
+            });
+        }).on('error', function (err) {
+            console.log('something went wrong on the request', err.request.options);
         });
+
+        // handling client error events 
+        client.on('error', function (err) {
+            console.error('Something went wrong on the client', err);
+        });
+
+
     } else {
         res.sendStatus(403);
     }
@@ -101,7 +118,7 @@ router.get('/', (req, res) => { // Start of GET to retrieve favorites from SQL D
 }); // end of GET to retrieve favorites from SQL Database
 
 /******************************************/
-/*            POST REQUESTS              */ 
+/*            POST REQUESTS              */
 /******************************************/
 
 router.post('/', (req, res) => { //Start post of add new favorites.
@@ -125,7 +142,7 @@ router.post('/', (req, res) => { //Start post of add new favorites.
 }); // end post of add new favorites.
 
 /******************************************/
-/*            PUT REQUESTS              */ 
+/*            PUT REQUESTS              */
 /******************************************/
 
 router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the SQL Database.
@@ -141,14 +158,14 @@ router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the
             .catch((err) => {
                 console.log('Error making get favorites query', err);
                 res.sendStatus(500);
-            });    
+            });
     } else {
         res.sendStatus(403);
     }
 }); // end of PUT to edit last chapter read on the SQL Database
 
 /******************************************/
-/*           DELETE REQUESTS              */ 
+/*           DELETE REQUESTS              */
 /******************************************/
 
 router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to the SQL Database.
@@ -163,7 +180,7 @@ router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to t
             .catch((err) => {
                 // console.log('Error making delete favorite query', err);
                 res.sendStatus(500);
-            });    
+            });
     } else {
         res.sendStatus(403);
     }

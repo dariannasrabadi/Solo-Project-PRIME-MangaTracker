@@ -1,5 +1,7 @@
 <div ng-include="'views/partials/nav.html'"></div>
-<h2><input type="text" placeholder="Filter Favorites" ng-model="query"></h2>
+<h2>
+    <input type="text" placeholder="Filter Favorites" ng-model="query">
+</h2>
 <!-- Card for each Favorite -->
 <div class="cardContainer" layout="row">
     <md-card class="cards" ng-repeat="favorites in vm.userFavorites.list.data.rows | filter:query">
@@ -14,7 +16,7 @@
                     <md-icon md-svg-icon="../../styles/icons/edit.svg"></md-icon>
                 </md-button>
                 <md-button ng-if="!favorites.hide" class="md-raised md-warn" ng-click="vm.removeFavorite(favorites)">Remove Favorite</md-button>
-                <h3 ng-if="favorites.hide" >
+                <h3 ng-if="favorites.hide">
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Last Chapter Read: {{favorites.last_chapter_read}}</label>
                         <input type="number" ng-model="favorites.newChapterRead">

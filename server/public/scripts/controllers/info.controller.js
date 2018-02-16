@@ -1,4 +1,4 @@
-myApp.controller('InfoController', ['UserService', function(UserService) {
+myApp.controller('InfoController', ['UserService', function (UserService) {
     console.log('InfoController created');
     var self = this;
     //User Auth Functions (Verify user is logged in, User can log out)
@@ -6,7 +6,7 @@ myApp.controller('InfoController', ['UserService', function(UserService) {
     self.userObject = UserService.userObject;
 
     //Sending search inquiry to the service to perform get request.
-    self.searchManga = function(searchInput) {
+    self.searchManga = function (searchInput) {
         MangaService.searchManga(searchInput);
     }
 }]);
