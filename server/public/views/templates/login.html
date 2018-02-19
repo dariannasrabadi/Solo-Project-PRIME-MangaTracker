@@ -1,7 +1,12 @@
-<img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
-<div class="formWrapper">
-    <h1 class="lead">Login</h1>
-    <h1 class="lead alert alert-danger" role="alert" ng-if="vm.message != ''">{{vm.message}}</h2>
+<div class="logReg" layout="column" layout-align="center center">
+    <div>
+        <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
+    </div>
+    <div>
+        <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+    </div>
+    <div class="formWrapper">
+        <h1 class="lead">Login</h1>
         <form ng-submit="vm.login()">
             <div>
                 <md-input-container>
@@ -15,9 +20,8 @@
                     <input type="password" ng-model="vm.user.password" />
                 </md-input-container>
             </div>
-            <div>
-                <md-button class="btn btn-default md-raised" type="submit" name="submit">Log In</md-button>
-                <a href="#!register">Register</a>
-            </div>
+            <md-button class="btn btn-default md-raised" type="submit" name="submit">Log In</md-button>
+            <a href="#!register">Register</a>
         </form>
+    </div>
 </div>

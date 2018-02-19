@@ -43,7 +43,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
             },
                 function (response) {
                     console.log('error');
-                    self.message = "Something went wrong. Please try again."
+                    self.message = `Username "${self.user.username}" is already taken!`
                 }
             );
         }

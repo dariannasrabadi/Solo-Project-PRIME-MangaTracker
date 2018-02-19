@@ -11,7 +11,7 @@
 
         <div class="cardContainer" layout="row">
             <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data">
-                <img ng-src="{{genre.im}}" class="md-card-image" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
+                <img ng-src="{{genre.im}}" class="md-card-image clickable" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
                 <md-card-title>
                     <md-card-title-text>
                         <h3 ng-click="vm.genreDetail(genre.t)">{{genre.t}}</h3>

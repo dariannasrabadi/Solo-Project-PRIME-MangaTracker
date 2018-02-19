@@ -19,7 +19,7 @@ let client = new Client(options_auth);
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         let dataToReturn = []
-        axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1000`).then(response => {
+        axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1500`).then(response => {
             // console.log('These is the response from mangaeden', response.data.manga);
             for (let i = 0; i < response.data.manga.length; i++) {
                 if (response.data.manga[i].c.includes(req.params.genre)) {
@@ -135,11 +135,11 @@ router.post('/', (req, res) => { //Start post of add new favorites.
                         VALUES ('${req.body.title}', '${req.body.id}', '${req.user.id}', '${req.body.image}', '${req.body.chapters}', '${req.body.synopsis}', '${req.body.status}');`
         pool.query(queryText)
             .then((result) => {
-                res.sendStatus(200);
+                res.sendStatus(201);
             })
             .catch((err) => {
                 console.log('Error making update query', err);
-                res.sendStatus(500);
+                res.sendStatus(409);
             });
     } else {
         res.sendStatus(403);

@@ -29,11 +29,19 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
             .catch(error => {
                 if (error.status === 403) {
-                    alert('You are not logged in.')
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
                     $location.path("/login");
                 }
                 else {
-                    alert(`There was an error searching "${searchInput}", please try a different keyword`)
+                    swal({
+                        text: `Please try a different keyword`,
+                        title: `There was an error searching "${searchInput}"`,
+                        icon: "error",
+                    })
                 }
             })
     }; //Search manga function (Used in all views except register & login)
@@ -47,7 +55,11 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
             .catch(error => {
                 if (error.status === 403) {
-                    alert('You are not logged in.')
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
                     $location.path("/login");
                 }
                 else {
@@ -69,12 +81,20 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
             .catch(error => {
                 if (error.status === 403) {
-                    alert('You are not logged in.')
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
                     $location.path("/login");
                 }
                 else {
                     console.log(error);
-                    alert(`There was an error in retrieving the ${genre} genre results, please try a different one`)
+                    swal({
+                        text: `Please try a different one`,
+                        title: `Error retrieving "${genre}" genre results`,
+                        icon: "error",
+                    })
                 }
             })
     }; //Search specified genre function (Used in home view and both results views)
@@ -88,17 +108,30 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
         $http.post(`/api/manga`, mangaInfo)
             .then(response => {
                 // console.log('added', response);   
-                alert(`${mangaInfo.title} has been added to favorites!`)
+                swal({
+                    title: `${mangaInfo.title} has been added to favorites!`,
+                    icon: "success",
+                    timer: 1200,
+                    buttons: false,
+                })
                 self.getFavorites()
             })
             .catch(error => {
                 if (error.status === 403) {
-                    alert('You are not logged in.')
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
                     $location.path("/login");
                 }
                 else {
                     console.log('Error on adding to favorites.', error);
-                    alert(`You already have ${mangaInfo.title} on your favorites!`)
+                    swal({
+                        text: `Please add a different one`,
+                        title: `${mangaInfo.title} is already in your favorites!`,
+                        icon: "info",
+                    })
                 }
             })
     }//End of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
@@ -116,7 +149,11 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
             .catch(error => {
                 if (error.status === 403) {
-                    alert('You are not logged in.')
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
                     $location.path("/login");
                 }
                 else {
@@ -131,23 +168,61 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
 
     self.removeFavorite = function (toDelete) { // Start of remove selected manga function (used in favorites view)
         console.log('this is the data to delete: ', toDelete);
-        if (confirm(`Are you sure you want to delete ${toDelete.manga_name}`)) { //To make sure that the user wants to delete the specific manga. 
-            $http.delete(`/api/manga/${toDelete.manga_id}`)
-                .then(response => {
-                    console.log('Success from delete manga: ', response);
-                    self.getFavorites()
-                    $location.path("/favorites");
-                })
-                .catch(error => {
-                    if (error.status === 403) {
-                        alert('You are not logged in.')
-                        $location.path("/login");
-                    }
-                    else {
-                        console.log('Error deleting favorites', error);
-                    }
-                })
-        }
+        swal({
+            title: `Are you sure you want to delete ${toDelete.manga_name}`,
+            icon: "warning",
+            dangerMode: 'Yes',
+            buttons: ["No", "Yes"],
+        })
+            .then(value => { //Sweet Alerts confirmation if user wants to delete the manga. 
+                if (value) { //To make sure that the user wants to delete the specific manga. 
+                    $http.delete(`/api/manga/${toDelete.manga_id}`)
+                        .then(response => {
+                            console.log('Success from delete manga: ', response);
+                            swal({
+                                title: `${toDelete.manga_name} has been removed!`,
+                                icon: "success",
+                                timer: 1200,
+                                buttons: false,
+                            })
+                            self.getFavorites()
+                            // This is if the user is viewing the manga details page, it returns him to the favorites view.
+                            $location.path("/favorites");
+                        })
+                        .catch(error => {
+                            if (error.status === 403) {
+                                swal({
+                                    text: `You are not logged in.`,
+                                    title: 'Not Allowed!',
+                                    icon: "error",
+                                })
+                                $location.path("/login");
+                            }
+                            else {
+                                console.log('Error deleting favorites', error);
+                            }
+                        })
+                }
+            })
+
+        // NORMAL CONFIRMATION
+        // if (confirm(`Are you sure you want to delete ${toDelete.manga_name}`)) { //To make sure that the user wants to delete the specific manga. 
+        //     $http.delete(`/api/manga/${toDelete.manga_id}`)
+        //         .then(response => {
+        //             console.log('Success from delete manga: ', response);
+        //             self.getFavorites()
+        //             $location.path("/favorites");
+        //         })
+        //         .catch(error => {
+        //             if (error.status === 403) {
+        //                 swal(`You are not logged in.`);
+        //                 $location.path("/login");
+        //             }
+        //             else {
+        //                 console.log('Error deleting favorites', error);
+        //             }
+        //         })
+        // }
     }// End of remove selected manga function (used in favorites view)
 
     /******************************************/

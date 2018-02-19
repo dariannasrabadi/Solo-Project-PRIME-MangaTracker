@@ -11,7 +11,7 @@
 
         <div class="cardContainer" layout="row">
             <md-card class="cards" ng-repeat="manga in vm.mangaResults.list.data">
-                <img ng-src="{{manga.image}}" class="md-card-image" alt="Washed Out" ng-click="vm.mangaDetail(manga)">
+                <img ng-src="{{manga.image}}" class="md-card-image clickable" alt="Washed Out" ng-click="vm.mangaDetail(manga)">
                 <md-card-title>
                     <md-card-title-text>
                         <h3>{{manga.title}}</h3>

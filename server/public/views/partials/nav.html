@@ -20,7 +20,7 @@
 <div layout="row" layout-align="space-between center" class="navItems">
     <div layout="row" layout-align="center center">
         <a href="#!home">
-            <img src="../../styles/images/MMT.png">
+            <img class="clickable" src="../../styles/images/MMT.png">
         </a>
         <a href="#!/home">Home</a>
         <a href="#!/favorites">Favorites</a>
@@ -33,8 +33,8 @@
                 <label>Search Manga Here</label>
                 <input type="text" ng-model="searchInput">
             </md-input-container>
-            <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
         </form>
+        <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
     </div>
     <div layout="row" layout-align="center center">
         <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
