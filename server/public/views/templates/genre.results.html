@@ -1,0 +1,27 @@
+<div ng-include="'views/partials/nav.html'"></div>
+<div layout="rows">
+    <div layout="column">
+        <!-- For when the user goes to this page without clicking a genre prior to this.-->
+        <div ng-if="!vm.genreResults.list.data">
+            <img src="../../styles/images/what.png">
+        </div>
+
+        <!-- Card for each genre manga result -->
+        <img class="results" ng-if="vm.genreResults.list.data" src="../../styles/images/Genre Results.png">
+
+        <div class="cardContainer" layout="row">
+            <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data">
+                <img ng-src="{{genre.im}}" class="md-card-image clickable" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
+                <md-card-title>
+                    <md-card-title-text>
+                        <h3 ng-click="vm.genreDetail(genre.t)">{{genre.t}}</h3>
+                    </md-card-title-text>
+                </md-card-title>
+            </md-card>
+        </div>
+    </div>
+    <div layout="column">
+        <div ng-include="'views/partials/categories.html'"></div>
+    </div>
+
+</div>

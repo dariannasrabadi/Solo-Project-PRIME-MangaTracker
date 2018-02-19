@@ -13,7 +13,7 @@ const mangaRouter = require('./routes/manga.router')
 
 // Body parser middleware
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Passport Session Configuration
 app.use(sessionConfig);
