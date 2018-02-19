@@ -4,15 +4,19 @@
     <h1 class="lead alert alert-danger" role="alert" ng-if="vm.message != ''">{{vm.message}}</h2>
         <form ng-submit="vm.registerUser()">
             <div>
-                <label for="username">Username:</label>
-                <input type="text" ng-model="vm.user.username" />
+                <md-input-container>
+                    <label for="username">Username:</label>
+                    <input type="text" ng-model="vm.user.username" />
+                </md-input-container>
             </div>
             <div>
-                <label for="password">Password:</label>
-                <input type="password" ng-model="vm.user.password" />
+                <md-input-container>
+
+                    <label for="password">Password:</label>
+                    <input type="password" ng-model="vm.user.password" />
+                </md-input-container>
             </div>
-            <input class="btn btn-default" type="submit" name="submit" value="Register" />
+            <md-button class="btn btn-default md-raised" type="submit" name="submit">Register</md-button>
             <a href="#!login">Cancel</a>
         </form>
-
 </div>

@@ -7,6 +7,8 @@
         </div>
 
         <!-- Card for each manga -->
+        <img class="results" ng-if="vm.mangaResults.list.data" src="../../styles/images/Search Results.png">
+
         <div class="cardContainer" layout="row">
             <md-card class="cards" ng-repeat="manga in vm.mangaResults.list.data">
                 <img ng-src="{{manga.image}}" class="md-card-image" alt="Washed Out" ng-click="vm.mangaDetail(manga)">

@@ -33,7 +33,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    alert('There was an error with your search request, please try a different keyword')
+                    alert(`There was an error searching "${searchInput}", please try a different keyword`)
                 }
             })
     }; //Search manga function (Used in all views except register & login)

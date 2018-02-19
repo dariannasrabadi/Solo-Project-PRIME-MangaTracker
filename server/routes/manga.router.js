@@ -73,7 +73,12 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
             //Adding the .manga.entry directly opens each manga details right away.
             // console.log('data from client get',data);
             if (data.hasOwnProperty('manga')) {
-                res.send(data.manga.entry);
+                if (typeof data.manga.entry === "undefined") {
+                res.send(data.manga);
+                }
+                else {
+                    res.send(data.manga.entry);
+                }
             }
             else {
                 res.sendStatus(500);

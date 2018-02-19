@@ -1,4 +1,4 @@
-<md-content class="md-padding">
+<!-- <md-content class="md-padding">
     <a href="#!home">
         <img src="../../styles/images/MMT.png">
     </a>
@@ -14,4 +14,30 @@
         <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
         <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
     </md-nav-bar>
-</md-content>
+</md-content> -->
+
+
+<div layout="row" layout-align="space-between center" class="navItems">
+    <div layout="row" layout-align="center center">
+        <a href="#!home">
+            <img src="../../styles/images/MMT.png">
+        </a>
+        <a href="#!/home">Home</a>
+        <a href="#!/favorites">Favorites</a>
+        <a href="#!/info">Technologies</a>
+
+    </div>
+    <div layout="row" layout-align="center center">
+        <form ng-submit="vm.searchManga(searchInput)">
+            <md-input-container>
+                <label>Search Manga Here</label>
+                <input type="text" ng-model="searchInput">
+            </md-input-container>
+            <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+        </form>
+    </div>
+    <div layout="row" layout-align="center center">
+        <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
+        <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
+    </div>
+</div>
