@@ -153,9 +153,22 @@ router.post('/', (req, res) => { //Start post of add new favorites.
 router.put('/', (req, res) => { // Start of PUT to edit last chapter read on the SQL Database.
     if (req.isAuthenticated()) {
         // console.log('This is the req.body for PUT update: ',req.body);
-        let queryText = `UPDATE favorites
-                        SET last_chapter_read = ${req.body.newChapterRead}
-                        WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        let queryText;
+        if (req.body.hasOwnProperty('newLatestChapter') && req.body.hasOwnProperty('newChapterRead')) {
+            queryText = `UPDATE favorites
+            SET last_chapter_read = ${req.body.newChapterRead}, latest_chapter = ${req.body.newLatestChapter}
+            WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        }
+        else if (req.body.hasOwnProperty('newLatestChapter')) {
+            queryText = `UPDATE favorites
+            SET latest_chapter = ${req.body.newLatestChapter}
+            WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        }
+        else if (req.body.hasOwnProperty('newChapterRead')) {
+            queryText = `UPDATE favorites
+            SET last_chapter_read = ${req.body.newChapterRead}
+            WHERE user_id = ${req.user.id} AND manga_id = ${req.body.manga_id} ;`    //User ID to determine the user that is logged on so it can edit their favorites manga and not another users. Manga ID instead of name since there can be mangas with the same name but they are different.
+        }
         pool.query(queryText)
             .then((result) => {
                 res.sendStatus(200);
