@@ -47,7 +47,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  /* background-color: #555454; */
   width: 100%;
   border-radius: 0px;
 }
@@ -65,7 +65,7 @@ body, html {
 
 .navList li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -76,19 +76,15 @@ body, html {
   color: #1e9406;
 }
 
+/* #userName {
+    color: white;
+} */
+
 /* cant get it to display how I want it to yet */
 /* #searchNav {
 align-content: center;
 } */
 
-#userNav {
-  float: right;
-}
-
-li p {
-  color: white;
-  font-size: 20px
-}
 
 #logOut {
     margin-top: 15px;
@@ -150,7 +146,64 @@ md-input-container.md-block.flex-gt-sm {
     max-height: 350px;
 }
 
-/* all images should be clickable */
-img {
+.clickable {
     cursor: pointer;
+}
+
+
+
+.logReg {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
+#info {
+    position:relative;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.navItems a {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.navItems h3 {
+    padding-right: 10px;
+}
+
+
+#genre {
+    width: 100%;
+    height: 150px
+}
+
+.results {
+    width: 75%;
+    height: 150px;
+    margin: 0 auto;
+    /* object-fit: cover; */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#wrongLogin {
+    color: red;
 }

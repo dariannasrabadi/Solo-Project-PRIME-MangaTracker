@@ -1,23 +1,43 @@
-<div class="navbar">
-  <div class="container">
-    <!-- Filler Logo -->
-    <a href="#!home"><img src="https://www.shareicon.net/data/128x128/2016/11/15/853200_religion_512x512.png"></a>
-    <ul class="navList">
-      <!-- View Links -->
-      <li><a href="#!home">Home</a></li>
-      <li><a href="#!favorites">Favorites</a></li>
-      <li><a href="#!info">Technologies</a></li>
-      <!-- Universal Search Bar When User is Logged In. -->
-      <!-- Error with search bar. on invalid search results the server will stop. -->
-      <span id="searchNav">
-        <li><input type="text" placeholder="Search Manga Here" ng-model="searchInput"></li>
-        <li><md-button class="md-raised md-primary" ng-click="vm.searchManga(searchInput)">Search</md-button></li>
-      </span>
-      <!-- Username and logout button to logout from anywhere. -->
-      <span id="userNav">
-        <li><p>Hi {{vm.userObject.userName}}!</p></li>
-        <li><button id="logOut" ng-click="vm.userService.logout()">Log Out</button></li>
-      </span>
-    </ul>
-  </div>
+<!-- <md-content class="md-padding">
+    <a href="#!home">
+        <img src="../../styles/images/MMT.png">
+    </a>
+    <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-href="#!/home">Home</md-nav-item>
+        <md-nav-item md-nav-href="#!/favorites">Favorites</md-nav-item>
+        <md-nav-item md-nav-href="#!/info">Technologies</md-nav-item>
+        <md-input-container>
+            <label>Search Manga Here</label>
+            <input type="text" ng-model="searchInput">
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="vm.searchManga(searchInput)">Search</md-button>
+        <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
+        <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
+    </md-nav-bar>
+</md-content> -->
+
+
+<div layout="row" layout-align="space-between center" class="navItems">
+    <div layout="row" layout-align="center center">
+        <a href="#!home">
+            <img class="clickable" src="../../styles/images/MMT.png">
+        </a>
+        <a href="#!/home">Home</a>
+        <a href="#!/favorites">Favorites</a>
+        <a href="#!/info">Technologies</a>
+
+    </div>
+    <div layout="row" layout-align="center center">
+        <form ng-submit="vm.searchManga(searchInput)">
+            <md-input-container>
+                <label>Search Manga Here</label>
+                <input type="text" ng-model="searchInput">
+            </md-input-container>
+        </form>
+        <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+    </div>
+    <div layout="row" layout-align="center center">
+        <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
+        <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
+    </div>
 </div>
