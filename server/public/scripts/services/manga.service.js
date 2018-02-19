@@ -158,6 +158,14 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 }
                 else {
                     console.log('Error updating favorites', error);
+                    swal({
+                        text: `Please Try Again!`,
+                        title: 'Error Updating Chapter',
+                        icon: "error",
+                    })
+                    // to refresh the edits (Since this is most likely caused by a null chapter edit)
+                    self.getFavorites()
+
                 }
             })
     } //End of edit last chapter read function (Used in favorites view)
