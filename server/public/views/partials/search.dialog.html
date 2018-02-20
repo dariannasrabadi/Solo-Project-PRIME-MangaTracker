@@ -9,48 +9,51 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-dialog-content style="max-width:800px;max-height:810px; ">
+        <md-dialog-content style="max-width:1400px;max-height:1400px; ">
             <md-tabs md-dynamic-height md-border-bottom>
-                <md-tab label="one">
+                <md-tab label="Search">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab One</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat
-                            neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas
-                            lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+                        <h3 class="md-display-2">Search for a Manga</h3>
+                        <form ng-submit="vm.searchManga(searchInput)">
+                            <md-input-container>
+                                <label>Manga Name Here</label>
+                                <input type="text" ng-model="searchInput">
+                            </md-input-container>
+                        </form>
+                        <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
                     </md-content>
                 </md-tab>
-                <md-tab label="two">
+                <md-tab ng-if="vm.results" label="Results">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Two</h1>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat
-                            neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas
-                            lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat.
-                            Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus.
-                            Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies
-                            id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet
-                            vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula
-                            sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum
-                            neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus
-                            ornare dui nec orci posuere, nec luctus mauris semper.</p>
-                        <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna.
-                            Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor
-                            tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi
-                            maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas
-                            facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus
-                            sapien sit amet, tempus sapien.</p>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie
-                            dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere
-                            mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula
-                            diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <h1 class="md-display-2">"{{searchInput}}" Results</h1>
+                        <h3>Click a result for more information</h3>
+                        <ul ng-repeat="manga in vm.mangaResults.list.data">
+                            <div layout="row" layout-align="space-between center">
+                                <div>
+                                    <li class="previewMangas" ng-click="vm.mangaDetail(manga)">{{manga.title}}</li>
+                                </div>
+                                <!-- Will decide if ill still use this or not. If i do remember to put back ng-mouseover="show=!show" ng-mouseleave="show=!show" -->
+                                <!-- <div>
+                                    <img ng-if="show" ng-src="{{manga.image}}" />
+                                </div> -->
+                            </div>
+                        </ul>
                     </md-content>
                 </md-tab>
-                <md-tab label="three">
+                <md-tab ng-if="vm.details" label="Details">
                     <md-content class="md-padding">
-                        <h1 class="md-display-2">Tab Three</h1>
-                        <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie
-                            dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere
-                            mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula
-                            diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+                        <div ng-if="vm.detailsPage.list" layout="row" class="detailsDiv">
+                            <div id="detailsBody">
+                                <h1 ng-if="vm.detailsPage.list.title">{{vm.detailsPage.list.title}}</h1>
+                                <p ng-if="vm.detailsPage.list.synopsis" ng-bind-html="vm.renderHTML(vm.detailsPage.list.synopsis)"></p>
+                                <p ng-if="!vm.detailsPage.list.synopsis">No Synopsis Available</p>
+                            </div>
+                            <div id="detailsImg">
+                                <img class="detailImage" ng-if="vm.detailsPage.list.image" ng-src="{{vm.detailsPage.list.image}}" alt="">
+                                <p>Status: {{vm.detailsPage.list.status}}</p>
+                                <p ng-if="vm.detailsPage.list.chapters">Chapters: {{vm.detailsPage.list.chapters}}</p>
+                            </div>
+                        </div>
                     </md-content>
                 </md-tab>
             </md-tabs>
@@ -59,10 +62,10 @@
         <md-dialog-actions layout="row">
             <h3>What do you want to do?</h3>
             <span flex></span>
-            <md-button ng-click="answer(False)">
+            <md-button ng-click="vm.answer('False')">
                 Close Search
             </md-button>
-            <md-button ng-click="answer(True)" style="margin-right:20px;">
+            <md-button ng-click="vm.answer('True')" style="margin-right:20px;">
                 Register
             </md-button>
         </md-dialog-actions>
