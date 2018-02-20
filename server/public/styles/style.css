@@ -217,3 +217,7 @@ input[type=number]::-webkit-outer-spin-button {
 .previewMangas {
     cursor: pointer;
 }
+
+.md-display-2 {
+    margin: 5px auto;
+}

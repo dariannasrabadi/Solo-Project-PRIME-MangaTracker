@@ -14,13 +14,15 @@
                 <md-tab label="Search">
                     <md-content class="md-padding">
                         <h3 class="md-display-2">Search for a Manga</h3>
-                        <form ng-submit="vm.searchManga(searchInput)">
-                            <md-input-container>
-                                <label>Manga Name Here</label>
-                                <input type="text" ng-model="searchInput">
-                            </md-input-container>
-                        </form>
-                        <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+                        <div layout="row" layout-align="center center">
+                            <form ng-submit="vm.searchManga(searchInput)">
+                                <md-input-container>
+                                    <label>Manga Name Here</label>
+                                    <input type="text" ng-model="searchInput">
+                                </md-input-container>
+                            </form>
+                            <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+                        </div>
                     </md-content>
                 </md-tab>
                 <md-tab ng-if="vm.results" label="Results">
