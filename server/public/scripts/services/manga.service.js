@@ -99,6 +99,33 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
     }; //Search specified genre function (Used in home view and both results views)
 
+
+    self.randomManga = function () {
+        $http.get(`/api/manga/button/random/manga`)
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                if (error.status === 403) {
+                    swal({
+                        title: 'Not Allowed!',
+                        text: `You are not logged in.`,
+                        icon: "error",
+                    })
+                    $location.path("/login");
+                }
+                else {
+                    console.log(error);
+                    swal({
+                        title: `Error spinning up a Manga`,
+                        text: `Please try again`,
+                        icon: "error",
+                    })
+                }
+            })
+    }
+
+
     /******************************************/
     /*             POST REQUESTS              */
     /******************************************/

@@ -18,9 +18,15 @@ myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', funct
     self.searchManga = function (searchInput) {
         MangaService.searchManga(searchInput);
     }
+
     //Sending genre search inquiry to the service to perform get request.
     self.searchGenre = function (genre) {
         MangaService.searchGenre(genre);
+    }
+    
+    //Request for a random manga
+    self.randomManga = function () {
+        MangaService.randomManga();
     }
 
     self.addFavorite = function (mangaInfo) {

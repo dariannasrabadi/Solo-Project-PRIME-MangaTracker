@@ -12,6 +12,11 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function 
     self.searchManga = function (searchInput) {
         MangaService.searchManga(searchInput);
     }
+    
+    //Request for a random manga
+    self.randomManga = function () {
+        MangaService.randomManga();
+    }
 
     self.editChapterRead = function (chapterRead) {
         MangaService.editChapterRead(chapterRead);

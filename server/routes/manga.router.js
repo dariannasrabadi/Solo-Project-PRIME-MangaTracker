@@ -15,6 +15,15 @@ let client = new Client(options_auth);
 /*            GET REQUESTS              */
 /******************************************/
 
+router.get('/button/random/manga', (req, res) => { // Start of search results for M.A.L. API.
+    if (req.isAuthenticated()) {
+        console.log('Inside start of spin up a random manga');
+        res.sendStatus(200)
+    } else {
+        res.sendStatus(403);
+    }
+});
+
 
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
