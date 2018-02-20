@@ -1,6 +1,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div layout="rows">
-    <div layout="column">
+    <div layout="column" class="cardsDiv">
         <!-- For when the user goes to this page without clicking a genre prior to this.-->
         <div ng-if="!vm.genreResults.list.data">
             <img src="../../styles/images/what.png">
@@ -10,7 +10,7 @@
         <img class="results" ng-if="vm.genreResults.list.data" src="../../styles/images/Genre Results.png">
 
         <div class="cardContainer" layout="row">
-            <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data">
+            <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data | orderBy : 't'">
                 <img ng-src="{{genre.im}}" class="md-card-image clickable" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
                 <md-card-title>
                     <md-card-title-text>
@@ -20,7 +20,7 @@
             </md-card>
         </div>
     </div>
-    <div layout="column">
+    <div layout="column" class="genresDiv">
         <div ng-include="'views/partials/categories.html'"></div>
     </div>
 
