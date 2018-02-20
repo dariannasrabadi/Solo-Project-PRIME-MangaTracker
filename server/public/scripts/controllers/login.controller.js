@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', function ($http, $location, UserService) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function ($http, $location, UserService, $mdDialog) {
     console.log('LoginController created');
     var self = this;
     self.user = {
@@ -48,4 +48,82 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
             );
         }
     }
+
+// To make a modal show
+    self.searchDialog = function (ev) {
+        $mdDialog.show({
+            controller: SearchController,
+            controllerAs: 'vm',
+            templateUrl: '../../views/partials/search.dialog.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        })
+            .then(function (answer) {                
+                if (answer === 'True') {
+                    $location.path('/register');
+                }
+            }, function () {
+                console.log('User closed the box');
+            });
+    };
+
+// The modals controller, named/determined in the self.searchDialog. 
+    function SearchController($mdDialog, $sce) {
+        const self = this;
+        self.mangaResults = { list: [] }
+        self.detailsPage = { list: {} }
+        
+        self.hide = function () {
+            $mdDialog.hide();
+        };
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.answer = function (answer) {
+            // when they click the button. This sends back the result which is caught by the .then of self.searchDialog
+            $mdDialog.hide(answer);
+        };
+
+        self.searchManga = function (searchInput) {
+            self.results = false;
+            self.details = false;
+            $http.get(`/api/manga/preLogin/${searchInput}`)
+                .then(response => {
+                    console.log(response);
+                    if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
+                        self.mangaResults.list = response
+                        self.results = true;                        
+                        // $location.path("/results");
+                    }
+                    else { //This is if the search results into only a single resulting manga. It will go to the manga details tab directly. 
+                        self.details = true;
+                        self.detailsPage.list = response.data
+                        // $location.path("/mangainfo");
+                    }
+                })
+                .catch(error => {
+                    swal({
+                        title: `There was an error with the search`,
+                        text: `Please try a different one`,
+                        icon: "error",
+                    })
+                })
+        };
+
+        self.mangaDetail = function (manga) {
+            self.details = true;
+            self.detailsPage.list = manga;
+            // $location.path("/mangainfo");
+        }
+
+        self.renderHTML = function (data) {
+            // console.log('inside');
+            return $sce.trustAsHtml(data);
+        }
+    }
+
+
 }]);

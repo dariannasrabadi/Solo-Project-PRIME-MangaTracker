@@ -204,5 +204,44 @@ router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to t
     }
 }); // end of DELETE manga request to the SQL Database
 
+/******************************************/
+/*           OTHER REQUESTS              */
+/******************************************/
+
+/********** PRE LOGIN SEARCH *************/
+
+// ITS BASICALLY COPY PASTING THE CODE BUT THIS WAY THE SEARCH RESULTS PAGE CAN STILL BE AUTHENTICATED. 
+
+router.get('/preLogin/:search', (req, res) => { // Start of search results for M.A.L. API.
+        client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
+            // parsed response body as js object 
+            //Adding the .manga.entry directly opens each manga details right away.
+            // console.log('data from client get',data);
+            if (data.hasOwnProperty('manga')) {
+                if (typeof data.manga.entry === "undefined") {
+                res.send(data.manga);
+                }
+                else {
+                    res.send(data.manga.entry);
+                }
+            }
+            else {
+                res.sendStatus(500);
+            }
+            // console.log('this is the raw response',response);
+            req.on('error', function (err) {
+                console.log('request error', err);
+                res.sendStatus(501);
+            });
+        }).on('error', function (err) {
+            console.log('something went wrong on the request', err.request.options);
+        });
+
+        // handling client error events 
+        client.on('error', function (err) {
+            console.error('Something went wrong on the client', err);
+        });
+}); // end get search results
+
 
 module.exports = router;
