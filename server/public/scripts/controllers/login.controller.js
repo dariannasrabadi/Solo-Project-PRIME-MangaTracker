@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', function ($http, $location, UserService) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function ($http, $location, UserService, $mdDialog) {
     console.log('LoginController created');
     var self = this;
     self.user = {
@@ -48,4 +48,42 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', functi
             );
         }
     }
+
+
+    self.searchDialog = function (ev) {
+        $mdDialog.show({
+            controller: SearchController,
+            controllerAs: 'vm',
+            templateUrl: '../../views/partials/search.dialog.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true
+        })
+            .then(function (answer) {
+                if (answer) {
+                    $$location.path('/register');
+                }
+            }, function () {
+                console.log('User closed the box');
+            });
+    };
+
+    function SearchController($mdDialog) {
+        const self = this;
+
+        self.hide = function () {
+            $mdDialog.hide();
+        };
+
+        self.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        self.answer = function (answer) {
+            // when they click the button that is the answer. 
+            $mdDialog.hide(answer);
+        };
+    }
+
+
 }]);
