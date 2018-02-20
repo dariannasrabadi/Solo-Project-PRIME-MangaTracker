@@ -38,8 +38,8 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 }
                 else {
                     swal({
-                        text: `Please try a different keyword`,
-                        title: `There was an error searching "${searchInput}"`,
+                        text: `Please try a different one`,
+                        title: `There was an error with the search`,
                         icon: "error",
                     })
                 }

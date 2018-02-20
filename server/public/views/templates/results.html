@@ -1,6 +1,6 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div layout="rows">
-    <div layout="column">
+    <div layout="column" class="cardsDiv">
         <!-- For when the user goes to this page without previously searching for a manga.  -->
         <div ng-if="!vm.mangaResults.list.data">
             <img src="../../styles/images/what.png">
@@ -26,7 +26,7 @@
             </md-card>
         </div>
     </div>
-    <div layout="column">
+    <div layout="column" class="genresDiv">
         <div ng-include="'views/partials/categories.html'"></div>
     </div>
 
