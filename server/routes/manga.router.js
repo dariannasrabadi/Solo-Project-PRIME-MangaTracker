@@ -65,8 +65,40 @@ router.get('/genres/pull/all/genres', (req, res) => { // Start of pull all genre
 router.get('/button/random/manga', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         console.log('Inside start of spin up a random manga');
-        console.log('This is the req.user.mangaList: ', genreStorage[0][Math.floor(Math.random()*genreStorage[0].length)]);
-        res.sendStatus(200)
+        let randomGenreManga = genreStorage[0][Math.floor(Math.random() * genreStorage[0].length)]
+        console.log('This is the randomGenreManga: ', randomGenreManga);
+        randomGenreManga.t = randomGenreManga.t.replace(/(&.*?\;)/g, '');
+        let randomMalSearch = randomGenreManga.t.substring(0, 10)
+        randomMalSearch = randomMalSearch.replace(/["-/;-@[-`þ]/g, '');
+
+        console.log('This is the search word for mMAL', randomMalSearch);
+        
+        client.get(`https://myanimelist.net/api/manga/search.xml?q=${randomMalSearch}`, function (data, response) {
+            if (data.hasOwnProperty('manga')) {
+                if (typeof data.manga.entry === "undefined") {
+                    res.send(data.manga);
+                }
+                else {
+                    res.send(data.manga.entry);
+                }
+            }
+            else {
+                res.sendStatus(500);
+            }
+            // console.log('this is the raw response',response);
+            req.on('error', function (err) {
+                console.log('request error', err);
+                res.sendStatus(501);
+            });
+        }).on('error', function (err) {
+            console.log('something went wrong on the request', err.request.options);
+        });
+
+        // handling client error events 
+        client.on('error', function (err) {
+            console.error('Something went wrong on the client', err);
+        });
+
     } else {
         res.sendStatus(403);
     }
