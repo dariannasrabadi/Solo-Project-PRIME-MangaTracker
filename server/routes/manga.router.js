@@ -65,7 +65,7 @@ router.get('/genres/pull/all/genres', (req, res) => { // Start of pull all genre
 router.get('/button/random/manga', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         console.log('Inside start of spin up a random manga');
-        console.log('This is the req.user.mangaList: ', genreStorage);
+        console.log('This is the req.user.mangaList: ', genreStorage[0][Math.floor(Math.random()*genreStorage[0].length)]);
         res.sendStatus(200)
     } else {
         res.sendStatus(403);
