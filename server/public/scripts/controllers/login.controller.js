@@ -18,6 +18,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
                         console.log('success: ', response.data);
                         // location works with SPA (ng-route)
                         $location.path('/home');
+
                     } else {
                         console.log('failure error: ', response);
                         self.message = "Incorrect credentials. Please try again.";
@@ -49,7 +50,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
         }
     }
 
-// To make a modal show
+    // To make a modal show
     self.searchDialog = function (ev) {
         $mdDialog.show({
             controller: SearchController,
@@ -59,7 +60,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
             targetEvent: ev,
             clickOutsideToClose: true
         })
-            .then(function (answer) {                
+            .then(function (answer) {
                 if (answer === 'True') {
                     $location.path('/register');
                 }
@@ -68,12 +69,12 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
             });
     };
 
-// The modals controller, named/determined in the self.searchDialog. 
+    // The modals controller, named/determined in the self.searchDialog. 
     function SearchController($mdDialog, $sce) {
         const self = this;
         self.mangaResults = { list: [] }
         self.detailsPage = { list: {} }
-        
+
         self.hide = function () {
             $mdDialog.hide();
         };
@@ -95,7 +96,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
                     console.log(response);
                     if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
                         self.mangaResults.list = response
-                        self.results = true;                        
+                        self.results = true;
                         // $location.path("/results");
                     }
                     else { //This is if the search results into only a single resulting manga. It will go to the manga details tab directly. 

@@ -23,7 +23,7 @@ myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', funct
     self.searchGenre = function (genre) {
         MangaService.searchGenre(genre);
     }
-    
+
     //Request for a random manga
     self.randomManga = function () {
         MangaService.randomManga();
@@ -38,9 +38,12 @@ myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', funct
         MangaService.mangaDetail(manga);
     }
 
+// window.pageYOffset ----> what is used to set scroll back to top. also window.scrollTo(0, 0)
+
     self.genreDetail = function (genreManga) {
-        // console.log(genreManga.substring(0,10));
+        console.log(genreManga.substring(0,10));
         //Have to cut the manga into 10 chars and remove all special characters due to how the M.A.L. API works and considering the way they write manga names are different.
+        genreManga = genreManga.replace(/(&.*?\;)/g, '');
         let mangaToSearch = genreManga.substring(0, 10)
         mangaToSearch = mangaToSearch.replace(/["-/;-@[-`þ]/g, '');
         // There will still be errors since the API's do not have the same manga naming system. Will need to find a workaround for any error.
@@ -50,5 +53,7 @@ myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', funct
     self.renderHTML = function (data) {
         return $sce.trustAsHtml(data);
     }
+
+    window.scrollTo(0, 0) //Reset window scroll to top.
 
 }]);

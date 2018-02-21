@@ -20,6 +20,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
                     self.mangaResults.list = response
                     // console.log(self.mangaResults);
+                    window.scrollTo(0, 0) //Reset window scroll to top.
                     $location.path("/results");
                 }
                 else { //This is if the search results into only a single resulting manga. It will go to the manga details page directly. 
@@ -77,6 +78,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             .then(response => {
                 console.log(response);
                 self.genreResults.list = response
+                window.scrollTo(0, 0) //Reset window scroll to top.
                 $location.path("/genre");
             })
             .catch(error => {
@@ -278,6 +280,20 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
         $location.path("/mangainfo");
     }
 
+
+    // Check manga Genres function
+    
+    self.checkGenres = function () {
+        $http.get(`/api/manga/genres/pull/all/genres`)
+                            .then(response => {
+                                console.log(response);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+    }
+
+    self.checkGenres()
     // END OF FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
 
 }]);

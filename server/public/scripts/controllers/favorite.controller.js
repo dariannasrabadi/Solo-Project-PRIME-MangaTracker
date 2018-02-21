@@ -12,7 +12,7 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function 
     self.searchManga = function (searchInput) {
         MangaService.searchManga(searchInput);
     }
-    
+
     //Request for a random manga
     self.randomManga = function () {
         MangaService.randomManga();
@@ -30,4 +30,7 @@ myApp.controller('FavoriteController', ['UserService', 'MangaService', function 
         // console.log(favoriteManga);
         MangaService.favoriteDetail(favoriteManga);
     }
+
+    window.scrollTo(0, 0) //Reset window scroll to top.
+
 }]);
