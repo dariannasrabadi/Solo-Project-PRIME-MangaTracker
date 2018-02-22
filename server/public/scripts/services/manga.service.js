@@ -69,9 +69,13 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
     }; //End of get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
 
-    // NOTE TO SELF; THIS CURRENTLY ONLY RELOADS ONCE. IF THE USER LOGS OUT AND SOMEONE ELSE LOGS IN WITHOUT REFRESHING THE PAGE THEIR FAVORITES WONT LOAD.
-    // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
-    self.getFavorites()
+    //Doesnt do this if the user refreshes page on login/register view or if he logs in normally. 
+    if ($location.$$url !== '/login' && $location.$$url !== '/register') {
+        if (performance.navigation.type == 1) { // Check if page was reloaded. Since the user did not use the login method will pull his favorites.
+            // console.info("This page is reloaded");
+            self.getFavorites()
+        }
+    }
 
     self.searchGenre = function (genre) { //Search specified genre function (Used in home view and both results views)
         $http.get(`/api/manga/genres/${genre}`)
@@ -114,7 +118,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     self.detailsPage.list = response.data
                     $location.path("/mangainfo");
                 }
-        })
+            })
             .catch(error => {
                 if (error.status === 403) {
                     swal({
@@ -289,20 +293,5 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     }
 
     // END OF FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
-
-    // Check manga Genres function
-    
-    self.checkGenres = function () {
-        $http.get(`/api/manga/genres/pull/all/genres`)
-                            .then(response => {
-                                console.log(response);
-                            })
-                            .catch(error => {
-                                console.log(error);
-                            })
-    }
-
-    self.checkGenres()
-
 
 }]);

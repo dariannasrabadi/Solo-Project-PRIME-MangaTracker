@@ -1,4 +1,4 @@
-myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDialog', function ($http, $location, UserService, $mdDialog) {
+myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoProcessService', 'MangaService','$mdDialog', function ($http, $location, UserService, AutoProcessService, MangaService, $mdDialog) {
     console.log('LoginController created');
     var self = this;
     self.user = {
@@ -17,6 +17,9 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', '$mdDi
                     if (response.status == 200) {
                         console.log('success: ', response.data);
                         // location works with SPA (ng-route)
+                        MangaService.getFavorites()
+                        AutoProcessService.updateFavorites() //auto updates users favorites if he has some.
+                        AutoProcessService.checkGenres() //runs check to see if genres should be updated
                         $location.path('/home');
 
                     } else {
