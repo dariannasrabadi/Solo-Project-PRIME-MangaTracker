@@ -364,24 +364,25 @@ router.put('/chapters', (req, res) => { // Start of Auto Update latest Chapters 
                             else { //This should be the real results of favorite search. 
                                 if (Array.isArray(data.manga.entry)) { // If the resulting search is an array.
                                     for (let j = 0; j < data.manga.entry.length; j++) { // START OF SECOND FOR LOOP
+                                        const entry = data.manga.entry[j];
                                         // IN FIRST FOR LOOP AND SECOND FORLOOP 
-                                        if (data.manga.entry[j].id == result.rows[i].manga_id) {
+                                        if (entry.id == result.rows[i].manga_id) {
                                             // console.log('Array manga received and matched a manga!: ', result.rows[i].manga_name, ' & ',result.rows[i].manga_id);
-                                            if (data.manga.entry[j].chapters == result.rows[i].latest_chapter || data.manga.entry[j].chapters < result.rows[i].latest_chapter) {
-                                                console.log('Skipping this manga since latest chapter saved is ahead or the smae as the api\'s chapter: ', result.rows[i].manga_name);
+                                            if (entry.chapters == result.rows[i].latest_chapter || entry.chapters < result.rows[i].latest_chapter) {
+                                                console.log('Skipping this manga since latest chapter saved is ahead or the same as the api\'s chapter: ', result.rows[i].manga_name);
                                             }
                                             else {
                                                 // START OF THIRD PROCESS (A) - UPDATING THE DATABASE WITH NEW CHAPTER.
                                                 queryText = `UPDATE favorites
-                                                SET latest_chapter = ${data.manga.entry[j].chapters}
+                                                SET latest_chapter = ${entry.chapters}
                                                 WHERE user_id = ${req.user.id} AND manga_id = ${result.rows[i].manga_id} ;`
                                                 pool.query(queryText)
                                                     .then((result) => {
                                                         // res.sendStatus(200);
-                                                        console.log('Updated latest chapter of: ', data.manga.entry[j].title, ' id: ', data.manga.entry[j].id);
+                                                        console.log('Updated latest chapter of: ', entry.title, ' id: ', entry.id);
                                                     })
                                                     .catch((err) => {
-                                                        console.log('Error updating database with auto update lastest chapter for: ', data.manga.entry[j].title, ' id: ', data.manga.entry[j].id);
+                                                        console.log('Error updating database with auto update lastest chapter for: ', entry.title, ' id: ', entry.id);
                                                         // res.sendStatus(500);
                                                     });
                                             }// END OF THIRD PROCESS (B)
@@ -390,9 +391,10 @@ router.put('/chapters', (req, res) => { // Start of Auto Update latest Chapters 
                                 }
                                 else {
                                     if (data.manga.entry.id == result.rows[i].manga_id) {
+                                        const entry = data.manga.entry;
                                         // console.log('Single manga received and matched a manga!: ', result.rows[i].manga_name, ' & ',result.rows[i].manga_id);
                                         if (data.manga.entry.chapters == result.rows[i].latest_chapter || data.manga.entry.chapters < result.rows[i].latest_chapter) {
-                                            console.log('Skipping this manga since latest chapter saved it ahead of api chapter: ', result.rows[i].manga_name);
+                                            console.log('Skipping this manga since latest chapter saved is ahead or the same as the api\'s chapter: ', result.rows[i].manga_name);
                                         }
                                         else {
                                             // START OF THIRD PROCESS (B) - UPDATING THE DATABASE WITH NEW CHAPTER.
