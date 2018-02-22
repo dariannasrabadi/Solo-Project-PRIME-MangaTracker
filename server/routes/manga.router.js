@@ -343,6 +343,64 @@ router.get('/preLogin/:search', (req, res) => { // Start of search results for M
 }); // end get search results
 
 
+/********** AUTO UPDATE LATEST CHAPTER OF FAVORITES *************/
+
+router.put('/chapters', (req, res) => { // Start of Auto Update latest Chapters of user favorites.
+    if (req.isAuthenticated()) {
+        // START OF FIRST PROCESS IN AUTO UPDATE LAST CHAPTER
+        let queryText = `SELECT * FROM favorites
+                        WHERE user_id = ${req.user.id}
+                        ORDER BY manga_name;`    //User ID is used to determine the current user that is logged on so it pulls their favorites.
+        pool.query(queryText) 
+            .then((result) => {
+                // START OF SECOND PROCESS IN AUTO UPDATE LAST CHAPTER - GOT FAVORITES, WILL NOW CROSS CHECK EACH FAVORITE NAME WITH THE MAL API SEARCH
+                for (let i = 0; i < result.rows.length; i++) {
+                    // IN FIRST FOR LOOP
+                    client.get(`https://myanimelist.net/api/manga/search.xml?q=${result.rows[i].manga_name}`, function (data, response) {
+                        if (data.hasOwnProperty('manga')) {
+                            if (typeof data.manga.entry === "undefined") { // offchance something happened.
+                                console.log('Could not update this manga: ', result.rows[i].manga_name);
+                            }
+                            else { //This should be the real results of favorite search. 
+                                if (Array.isArray(data.manga.entry)) { // If the resulting search is an array.
+                                    for (let j = 0; j < data.manga.entry.length; j++) { // START OF SECOND FOR LOOP
+                                        // IN FIRST FOR LOOP AND SECOND FORLOOP 
+                                        if (data.manga.entry[j].id == result.rows[i].manga_id) {
+                                            console.log('Array manga received and matched a manga!: ', result.rows[i].manga_name, ' & ',result.rows[i].manga_id);
+                                        }
+                                    } // END OF SECOND FOR LOOP (STILL IN FIRST)
+                                }
+                                else {
+                                    if (data.manga.entry.id == result.rows[i].manga_id) {
+                                        console.log('Single manga received and matched a manga!: ', result.rows[i].manga_name, ' & ',result.rows[i].manga_id);
+                                    }
+                                }
+                            }
+                        }
+                        else { // SECOND PROCESS ERROR CHECK
+                            res.sendStatus(500);
+                        }
+                    }).on('error', function (err) {
+                        console.log('something went wrong on the request', err.request.options);
+                    });
+
+                    // handling client error events 
+                    client.on('error', function (err) {
+                        console.error('Something went wrong on the client', err);
+                    });//  END OF SECOND PROCESS ERROR CHECK
+
+                } // END OF FIRST FOR LOOP
+                res.sendStatus(200)
+            })// END OF FIRST PROCESS IN AUTO UPDATE LAST CHAPTER
+            .catch((err) => {// FIRST PROCESS ERROR CHECK
+                console.log('Error trying to get favorites for auto update last chapters: ', err);
+                res.sendStatus(500);
+            });// END OF FIRST PROCESS ERROR CHECK
+    } else {
+        res.sendStatus(403);
+    }
+}); // end of Auto Update latest Chapters of user favorites.
+
 
 
 module.exports = router;

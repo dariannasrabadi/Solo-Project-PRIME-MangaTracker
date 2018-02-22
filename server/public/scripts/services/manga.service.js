@@ -304,5 +304,27 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
 
     self.checkGenres()
 
+    
+    self.updateFavorites = function () { //temporary function for auto updating last manga chapters. 
+        $http.put(`/api/manga/chapters`)
+            .then(response => {
+                console.log('Response', response);
+            })
+            .catch(error => {
+                if (error.status === 403) {
+                    swal({
+                        text: `You are not logged in.`,
+                        title: 'Not Allowed!',
+                        icon: "error",
+                    })
+                    $location.path("/login");
+                }
+                else {
+                    console.log('Error retrieving favorites', error);
+                }
+            })
+    }; //End of temporary function for auto updating last manga chapters. 
+    
+    self.updateFavorites();
 
 }]);
