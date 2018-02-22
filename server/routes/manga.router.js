@@ -72,7 +72,7 @@ router.get('/button/random/manga', (req, res) => { // Start of search results fo
         randomMalSearch = randomMalSearch.replace(/["-/;-@[-`þ]/g, '');
 
         console.log('This is the search word for mMAL', randomMalSearch);
-        
+
         client.get(`https://myanimelist.net/api/manga/search.xml?q=${randomMalSearch}`, function (data, response) {
             if (data.hasOwnProperty('manga')) {
                 if (typeof data.manga.entry === "undefined") {
@@ -83,13 +83,27 @@ router.get('/button/random/manga', (req, res) => { // Start of search results fo
                 }
             }
             else {
-                res.sendStatus(500);
+                // IF THE SEARCH API FAILS THEN SEND BACK THE GENRE RESULT.
+                if (randomGenreManga.im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
+                    randomGenreManga.im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
+                }
+                else {
+                    randomGenreManga.im = `https://cdn.mangaeden.com/mangasimg/${randomGenreManga.im}` //Adding the base http tag for the manga images to display on genre results page.
+                }
+
+                let mangaToSend = { //Will send back the normal manga results from randomGenreManga so that it will still be a manga. 
+                    image: randomGenreManga.im,
+                    synopsis: "No Synopsis Provided",
+                    title: randomGenreManga.t,
+                    chapters: 1, // Since the API doesnt provide it, will hard code 1 since if it exists there is always 1 Chapter.
+                }
+                res.send(mangaToSend);
             }
             // console.log('this is the raw response',response);
-            req.on('error', function (err) {
-                console.log('request error', err);
-                res.sendStatus(501);
-            });
+            // req.on('error', function (err) {
+            //     console.log('request error', err);
+            //     res.sendStatus(501);
+            // });
         }).on('error', function (err) {
             console.log('something went wrong on the request', err.request.options);
         });
@@ -173,10 +187,6 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
                 res.sendStatus(500);
             }
             // console.log('this is the raw response',response);
-            req.on('error', function (err) {
-                console.log('request error', err);
-                res.sendStatus(501);
-            });
         }).on('error', function (err) {
             console.log('something went wrong on the request', err.request.options);
         });
@@ -331,6 +341,8 @@ router.get('/preLogin/:search', (req, res) => { // Start of search results for M
         console.error('Something went wrong on the client', err);
     });
 }); // end get search results
+
+
 
 
 module.exports = router;

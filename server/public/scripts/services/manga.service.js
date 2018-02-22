@@ -288,6 +288,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
         $location.path("/mangainfo");
     }
 
+    // END OF FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
 
     // Check manga Genres function
     
@@ -302,6 +303,6 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     }
 
     self.checkGenres()
-    // END OF FUNCTIONS FOR DISPLAYING MANGA DETAILS ON MANGA.DETAILS.HTML
+
 
 }]);
