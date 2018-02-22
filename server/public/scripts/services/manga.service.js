@@ -302,7 +302,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                             })
     }
 
-    self.checkGenres()
+    // self.checkGenres()
 
     
     self.updateFavorites = function () { //temporary function for auto updating last manga chapters. 
@@ -325,6 +325,6 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
     }; //End of temporary function for auto updating last manga chapters. 
     
-    self.updateFavorites();
+    // self.updateFavorites();
 
 }]);
