@@ -36,6 +36,9 @@
         </form>
         <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
     </div>
+    <div>
+        <md-button class="md-raised md-primary" ng-click="vm.randomManga()">Surprise Me!</md-button>
+    </div>
     <div layout="row" layout-align="center center">
         <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
         <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>

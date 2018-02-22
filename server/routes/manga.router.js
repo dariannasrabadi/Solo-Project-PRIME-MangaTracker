@@ -5,22 +5,125 @@ const Client = require('node-rest-client').Client;
 const router = express.Router();
 const axios = require('axios')
 
+// Is authenticated in a module middleware. 
 
 //Setting user and password for M.A.L. authentication, need to place in .env file
 let options_auth = { user: process.env.MAL_USER, password: process.env.MAL_PASSWORD };
 
 let client = new Client(options_auth);
 
+let lastGenreGrab = [new Date] //Sets the initial Date the server was spun up to be compared in terms of 1 day to see next time to grab the genres.
+let genreStorage = [] //Where mangas will be stored.
+let oneDay = 24 * 60 * 60 * 1000 // The check if its been a day. 
+
 /******************************************/
 /*            GET REQUESTS              */
 /******************************************/
+
+router.get('/genres/pull/all/genres', (req, res) => { // Start of pull all genres to be stored from ME API
+    if (req.isAuthenticated()) {
+        let dateNow = new Date
+
+        if (typeof genreStorage[0] == 'undefined') {
+            console.log('Inserting initial manga generated');
+            axios.get(`https://www.mangaeden.com/api/list/0`)
+                .then(response => {
+                    // console.log('This is the response from mangaeden', response.data.manga);
+                    console.log('Done grabbing the manga'); //Tested this, there are 17k+ manga to grab. Needs about a min or so to grab it.
+                    genreStorage.push(response.data.manga)
+                    res.sendStatus(200)
+                })
+                .catch(err => {
+                    console.log('Error getting all mangaeden mangas: ', err);
+                    res.sendStatus(500);
+                });
+        }
+
+        if ((dateNow - lastGenreGrab[0]) > oneDay) {
+            console.log('its been more than a day! get new manga list!');
+            axios.get(`https://www.mangaeden.com/api/list/0`)
+                .then(response => {
+                    // console.log('This is the response from mangaeden', response.data.manga);
+                    //this will remove the prior one and push the new one. AFTER it retrieves the data.
+                    genreStorage.pop()
+                    genreStorage.push(response.data.manga)
+                    res.sendStatus(200)
+                })
+                .catch(err => {
+                    console.log('Error getting all mangaeden mangas: ', err);
+                    res.sendStatus(500);
+                });
+        }
+        else {
+            console.log('Has not been a day yet since last mangaGrab', (dateNow - lastGenreGrab[0]));
+        }
+    } else {
+        res.sendStatus(403);
+    }
+}); //End of pull all genres to be stored from ME API
+
+router.get('/button/random/manga', (req, res) => { // Start of search results for M.A.L. API.
+    if (req.isAuthenticated()) {
+        console.log('Inside start of spin up a random manga');
+        let randomGenreManga = genreStorage[0][Math.floor(Math.random() * genreStorage[0].length)]
+        console.log('This is the randomGenreManga: ', randomGenreManga);
+        randomGenreManga.t = randomGenreManga.t.replace(/(&.*?\;)/g, '');
+        let randomMalSearch = randomGenreManga.t.substring(0, 10)
+        randomMalSearch = randomMalSearch.replace(/["-/;-@[-`þ]/g, '');
+
+        console.log('This is the search word for mMAL', randomMalSearch);
+
+        client.get(`https://myanimelist.net/api/manga/search.xml?q=${randomMalSearch}`, function (data, response) {
+            if (data.hasOwnProperty('manga')) {
+                if (typeof data.manga.entry === "undefined") {
+                    res.send(data.manga);
+                }
+                else {
+                    res.send(data.manga.entry);
+                }
+            }
+            else {
+                // IF THE SEARCH API FAILS THEN SEND BACK THE GENRE RESULT.
+                if (randomGenreManga.im == null) { //Checking if the image from Manga Eden does not exist. then replacing it with a default image.
+                    randomGenreManga.im = 'http://www.colorluna.com/wp-content/uploads/2014/03/Oscar-say-Go-Away-in-Sesame-Street-Coloring-Page.jpg' //Will change this to something else. This for now though.
+                }
+                else {
+                    randomGenreManga.im = `https://cdn.mangaeden.com/mangasimg/${randomGenreManga.im}` //Adding the base http tag for the manga images to display on genre results page.
+                }
+
+                let mangaToSend = { //Will send back the normal manga results from randomGenreManga so that it will still be a manga. 
+                    image: randomGenreManga.im,
+                    synopsis: "No Synopsis Provided",
+                    title: randomGenreManga.t,
+                    chapters: 1, // Since the API doesnt provide it, will hard code 1 since if it exists there is always 1 Chapter.
+                }
+                res.send(mangaToSend);
+            }
+            // console.log('this is the raw response',response);
+            // req.on('error', function (err) {
+            //     console.log('request error', err);
+            //     res.sendStatus(501);
+            // });
+        }).on('error', function (err) {
+            console.log('something went wrong on the request', err.request.options);
+        });
+
+        // handling client error events 
+        client.on('error', function (err) {
+            console.error('Something went wrong on the client', err);
+        });
+
+    } else {
+        res.sendStatus(403);
+    }
+});
 
 
 router.get('/genres/:genre', (req, res) => { // Start of search results for M.A.L. API.
     if (req.isAuthenticated()) {
         let dataToReturn = []
         axios.get(`https://www.mangaeden.com/api/list/0/?p=0&l=1500`).then(response => {
-            // console.log('These is the response from mangaeden', response.data.manga);
+            // console.log('This is the response from mangaeden', response.data.manga);
             for (let i = 0; i < response.data.manga.length; i++) {
                 if (response.data.manga[i].c.includes(req.params.genre)) {
                     // console.log(response.data.manga[i].t);
@@ -74,7 +177,7 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
             // console.log('data from client get',data);
             if (data.hasOwnProperty('manga')) {
                 if (typeof data.manga.entry === "undefined") {
-                res.send(data.manga);
+                    res.send(data.manga);
                 }
                 else {
                     res.send(data.manga.entry);
@@ -84,10 +187,6 @@ router.get('/:search', (req, res) => { // Start of search results for M.A.L. API
                 res.sendStatus(500);
             }
             // console.log('this is the raw response',response);
-            req.on('error', function (err) {
-                console.log('request error', err);
-                res.sendStatus(501);
-            });
         }).on('error', function (err) {
             console.log('something went wrong on the request', err.request.options);
         });
@@ -213,35 +312,37 @@ router.delete('/:mangaId', (req, res) => { // Start of DELETE manga request to t
 // ITS BASICALLY COPY PASTING THE CODE BUT THIS WAY THE SEARCH RESULTS PAGE CAN STILL BE AUTHENTICATED. 
 
 router.get('/preLogin/:search', (req, res) => { // Start of search results for M.A.L. API.
-        client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
-            // parsed response body as js object 
-            //Adding the .manga.entry directly opens each manga details right away.
-            // console.log('data from client get',data);
-            if (data.hasOwnProperty('manga')) {
-                if (typeof data.manga.entry === "undefined") {
+    client.get(`https://myanimelist.net/api/manga/search.xml?q=${req.params.search}`, function (data, response) {
+        // parsed response body as js object 
+        //Adding the .manga.entry directly opens each manga details right away.
+        // console.log('data from client get',data);
+        if (data.hasOwnProperty('manga')) {
+            if (typeof data.manga.entry === "undefined") {
                 res.send(data.manga);
-                }
-                else {
-                    res.send(data.manga.entry);
-                }
             }
             else {
-                res.sendStatus(500);
+                res.send(data.manga.entry);
             }
-            // console.log('this is the raw response',response);
-            req.on('error', function (err) {
-                console.log('request error', err);
-                res.sendStatus(501);
-            });
-        }).on('error', function (err) {
-            console.log('something went wrong on the request', err.request.options);
+        }
+        else {
+            res.sendStatus(500);
+        }
+        // console.log('this is the raw response',response);
+        req.on('error', function (err) {
+            console.log('request error', err);
+            res.sendStatus(501);
         });
+    }).on('error', function (err) {
+        console.log('something went wrong on the request', err.request.options);
+    });
 
-        // handling client error events 
-        client.on('error', function (err) {
-            console.error('Something went wrong on the client', err);
-        });
+    // handling client error events 
+    client.on('error', function (err) {
+        console.error('Something went wrong on the client', err);
+    });
 }); // end get search results
+
+
 
 
 module.exports = router;
