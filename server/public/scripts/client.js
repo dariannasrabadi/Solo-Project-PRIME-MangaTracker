@@ -6,6 +6,11 @@ myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', funct
 
     // Added mdtheming, will put edits here to see if I will use it in the end or not
 
+    // $mdThemingProvider.theme('default')
+    // .primaryPalette('grey')
+    // .accentPalette('red');
+  
+
     $routeProvider
         .when('/', {
             redirectTo: 'login'

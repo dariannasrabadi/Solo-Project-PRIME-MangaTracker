@@ -233,6 +233,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                                 icon: "success",
                                 timer: 1200,
                                 buttons: false,
+                                icon: "../../styles/icons/trash.svg",
                             })
                             self.getFavorites()
                             // This is if the user is viewing the manga details page, it returns him to the favorites view.

@@ -79,6 +79,10 @@ router.get('/button/random/manga', (req, res) => { // Start of search results fo
                     res.send(data.manga);
                 }
                 else {
+                    if (data.manga.entry.synopsis == '') {
+                        console.log('There is no synopsis');
+                        data.manga.entry.synopsis = "No Synopsis Provided"
+                    }
                     res.send(data.manga.entry);
                 }
             }

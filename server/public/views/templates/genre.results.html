@@ -7,10 +7,19 @@
         </div>
 
         <!-- Card for each genre manga result -->
-        <img class="results" ng-if="vm.genreResults.list.data" src="../../styles/images/Genre Results.png">
+        <div layout="row" layout-align="space-around center">
+            <div>
+                <img class="results" ng-if="vm.genreResults.list.data" src="../../styles/images/Genre Results.png">
+            </div>
+            <!-- <div>
+                <h2>
+                    <input type="text" placeholder="Filter Favorites" ng-model="query">
+                </h2>
+            </div> -->
+        </div>
 
         <div class="cardContainer" layout="row">
-            <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data | orderBy : 't'">
+            <md-card class="cards" ng-repeat="genre in vm.genreResults.list.data">
                 <img ng-src="{{genre.im}}" class="md-card-image clickable" alt="Washed Out" ng-click="vm.genreDetail(genre.t)">
                 <md-card-title>
                     <md-card-title-text>

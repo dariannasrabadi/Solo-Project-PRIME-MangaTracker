@@ -7,7 +7,16 @@
         </div>
 
         <!-- Card for each manga -->
-        <img class="results" ng-if="vm.mangaResults.list.data" src="../../styles/images/Search Results.png">
+        <div layout="row" layout-align="space-around center">
+            <div>
+                <img class="results" ng-if="vm.mangaResults.list.data" src="../../styles/images/Search Results.png">
+            </div>
+            <!-- <div>
+                    <h2>
+                        <input type="text" placeholder="Filter Favorites" ng-model="query">
+                    </h2>
+                </div> -->
+        </div>
 
         <div class="cardContainer" layout="row">
             <md-card class="cards" ng-repeat="manga in vm.mangaResults.list.data">

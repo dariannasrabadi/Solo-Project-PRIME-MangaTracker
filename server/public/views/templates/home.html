@@ -1,7 +1,11 @@
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
-        <img src="../../styles/images/pick a genre.png">
-        <img src="../../styles/images/Search for a manga.png">
+    <div layout="row" layout-align="space-around center">
+        <div>
+            <img class="results" src="../../styles/images/pick a genre.png">
+        </div>
+    </div>
+    <!-- <img src="../../styles/images/Search for a manga.png"> -->
     <div layout="column" class="genresDivList">
         <div layout="rows" flex>
             <md-button class="md-raised" ng-click="vm.searchGenre('Action')">Action</md-button>
