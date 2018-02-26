@@ -5,11 +5,58 @@ body, html {
   font-size: 14px;
   width: 100%;
   height: 100%;
-  /* background: url("images/backtwo.png") no-repeat fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover; */
+
+}
+#otherDivs  {
+    position:relative;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background: url("images/backone.png") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+#homeDiv  {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background: url("images/backone.png") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#mangaDetailsDiv {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color:  rgba(83, 83, 83, 0.829);
+    /* opacity: 0.5; */
+    color: white
+
 }
 
 .instructions .container h1 {
@@ -164,6 +211,13 @@ md-input-container.md-block.flex-gt-sm {
     /* opacity: 0.5; */
     color: white
 }
+
+#presentation {
+    background-color:  rgba(83, 83, 83, 0.829);
+    /* opacity: 0.5; */
+    color: white
+}
+
 #landingDiv input {
     background-color:  rgb(235, 235, 235);
     /* opacity: 0.5; */
@@ -209,19 +263,22 @@ md-input-container.md-block.flex-gt-sm {
 .navItems a {
     padding-left: 10px;
     padding-right: 10px;
+    color: white
+}
+
+.navItems input {
+    color: white;
 }
 
 .navItems h3 {
     padding-right: 10px;
 }
 
-/* .navItems {
-    overflow: visible;
-    background-color: white;
-    position: fixed;
-    top: 0; 
+.navItems {
+    background-color: rgba(26, 26, 26, 0.829);
     width: 100%;
-} */
+    color: white
+}
 
 
 #genre {
@@ -260,4 +317,25 @@ input[type=number]::-webkit-outer-spin-button {
 
 .md-display-2 {
     margin: 5px auto;
+}
+
+.md-toolbar-tools {
+    background-color: rgb(87, 87, 87);
+}
+
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+    background: rgb(87, 87, 87);
+    color: rgb(87, 87, 87);
+}
+
+button.md-raised.md-primary.md-button.md-ink-ripple {
+    background-color: grey;
+}
+
+#navInput {
+    background-color:  rgb(235, 235, 235);
+}
+
+#inputLocation {
+    margin-top: 40px
 }

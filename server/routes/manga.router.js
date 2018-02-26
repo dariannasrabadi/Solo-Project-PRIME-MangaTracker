@@ -241,7 +241,7 @@ router.post('/', (req, res) => { //Start post of add new favorites.
                 res.sendStatus(201);
             })
             .catch((err) => {
-                console.log('Error making update query', err);
+                console.log('Error making post query', err);
                 res.sendStatus(409);
             });
     } else {

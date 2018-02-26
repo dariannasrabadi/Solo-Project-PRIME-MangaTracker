@@ -36,9 +36,9 @@
     </md-content> -->
     <div layout="row" layout-align="center center">
         <form ng-submit="vm.searchManga(searchInput)">
-            <md-input-container>
+            <md-input-container id="inputLocation">
                 <label>Search Manga Here</label>
-                <input type="text" ng-model="searchInput">
+                <input id="navInput" type="text" ng-model="searchInput">
             </md-input-container>
         </form>
         <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>

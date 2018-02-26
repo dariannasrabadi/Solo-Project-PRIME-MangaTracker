@@ -5,7 +5,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     self.mangaResults = { list: [] }
     self.genreResults = { list: [] }
     self.userFavorites = { list: [] }
-    self.detailsPage = { list: {} }
+    self.detailsPage = {}
     self.favoriteDetailsPage;
 
     /******************************************/
