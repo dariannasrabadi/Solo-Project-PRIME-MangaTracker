@@ -1,27 +1,29 @@
 <div class="logReg" layout="column" layout-align="center center">
-    <div>
-        <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
-    </div>
-    <div>
-        <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
-    </div>
-    <div class="formWrapper">
-        <h1 class="lead">Register User</h1>
-        <form ng-submit="vm.registerUser()">
-            <div>
-                <md-input-container>
-                    <label for="username">Username:</label>
-                    <input type="text" ng-model="vm.user.username" />
-                </md-input-container>
-            </div>
-            <div>
-                <md-input-container>
-                    <label for="password">Password:</label>
-                    <input type="password" ng-model="vm.user.password" />
-                </md-input-container>
-            </div>
-            <md-button class="btn btn-default md-raised" type="submit" name="submit">Register</md-button>
-            <a href="#!login">Cancel</a>
-        </form>
+    <div layout="column" layout-align="center center" id="landingDiv">
+        <div>
+            <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
+        </div>
+        <div>
+            <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+        </div>
+        <div class="formWrapper">
+            <h1 class="lead">Register User</h1>
+            <form ng-submit="vm.registerUser()">
+                <div>
+                    <md-input-container>
+                        <label for="username">Username:</label>
+                        <input type="text" ng-model="vm.user.username" />
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label for="password">Password:</label>
+                        <input type="password" ng-model="vm.user.password" />
+                    </md-input-container>
+                </div>
+                <md-button class="btn btn-default md-raised" type="submit" name="submit">Register</md-button>
+                <a class="textLink" href="#!login">Cancel</a>
+            </form>
+        </div>
     </div>
 </div>

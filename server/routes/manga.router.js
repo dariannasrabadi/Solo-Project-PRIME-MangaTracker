@@ -79,6 +79,10 @@ router.get('/button/random/manga', (req, res) => { // Start of search results fo
                     res.send(data.manga);
                 }
                 else {
+                    if (data.manga.entry.synopsis == '') {
+                        console.log('There is no synopsis');
+                        data.manga.entry.synopsis = "No Synopsis Provided"
+                    }
                     res.send(data.manga.entry);
                 }
             }
@@ -237,7 +241,7 @@ router.post('/', (req, res) => { //Start post of add new favorites.
                 res.sendStatus(201);
             })
             .catch((err) => {
-                console.log('Error making update query', err);
+                console.log('Error making post query', err);
                 res.sendStatus(409);
             });
     } else {
