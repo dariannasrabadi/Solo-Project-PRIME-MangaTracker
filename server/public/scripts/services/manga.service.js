@@ -24,6 +24,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/results");
                 }
                 else { //This is if the search results into only a single resulting manga. It will go to the manga details page directly. 
+                    // console.log(response.data);
                     self.detailsPage.list = response.data
                     $location.path("/mangainfo");
                 }
@@ -105,11 +106,10 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
     }; //Search specified genre function (Used in home view and both results views)
 
-
     self.randomManga = function () {
         $http.get(`/api/manga/button/random/manga`)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 if (Array.isArray(response.data)) { // If the resulting search is an array. Then it will pick a random one and display it.
                     self.detailsPage.list = response.data[Math.floor(Math.random() * response.data.length)]
                     $location.path("/mangainfo");
