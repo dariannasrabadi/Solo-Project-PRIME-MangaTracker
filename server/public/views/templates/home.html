@@ -1,45 +1,51 @@
-<div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
-        <img src="../../styles/images/pick a genre.png">
-        <img src="../../styles/images/Search for a manga.png">
-    <div layout="column" class="genresDivList">
-        <div layout="rows" flex>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Action')">Action</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Adult')">Adult</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Adventure')">Adventure</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Comedy')">Comedy</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Doujinshi')">Doujinshi</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Drama')">Drama</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Ecchi')">Ecchi</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Fantasy')">Fantasy</md-button>
+<div id="homeDiv">
+    <div ng-include="'views/partials/nav.html'"></div>
+    <div class="container">
+        <div layout="row" layout-align="space-around center">
+            <div>
+                <img class="results" src="../../styles/images/pick a genre.png">
+            </div>
         </div>
-        <div layout="rows" flex>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Gender Bender')">Gender Bender</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Harem')">Harem</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Historical')">Historical</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Horror')">Horror</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Josei')">Josei</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Martial Arts')">Martial Arts</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Mature')">Mature</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Mecha')">Mecha</md-button>
-        </div>
-        <div layout="rows" flex>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Mystery')">Mystery</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Psychological')">Psychological</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Romance')">Romance</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('School Life')">School Life</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Sci-fi')">Sci-fi</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Seinen')">Seinen</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Shoujo')">Shoujo</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Shounen')">Shounen</md-button>
-        </div>
-        <div layout="rows" flex>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Slice of Life')">Slice of Life</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Sports')">Sports</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Supernatural')">Supernatural</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Tragedy')">Tragedy</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Yaoi')">Yaoi</md-button>
-            <md-button class="md-raised" ng-click="vm.searchGenre('Yuri')">Yuri</md-button>
+        <!-- <img src="../../styles/images/Search for a manga.png"> -->
+        <div layout="column" class="genresDivList" id="presentation">
+            <div layout="rows" flex>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Action')">Action</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Adult')">Adult</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Adventure')">Adventure</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Comedy')">Comedy</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Doujinshi')">Doujinshi</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Drama')">Drama</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Ecchi')">Ecchi</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Fantasy')">Fantasy</md-button>
+            </div>
+            <div layout="rows" flex>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Gender Bender')">Gender Bender</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Harem')">Harem</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Historical')">Historical</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Horror')">Horror</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Josei')">Josei</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Martial Arts')">Martial Arts</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Mature')">Mature</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Mecha')">Mecha</md-button>
+            </div>
+            <div layout="rows" flex>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Mystery')">Mystery</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Psychological')">Psychological</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Romance')">Romance</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('School Life')">School Life</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Sci-fi')">Sci-fi</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Seinen')">Seinen</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Shoujo')">Shoujo</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Shounen')">Shounen</md-button>
+            </div>
+            <div layout="rows" flex>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Slice of Life')">Slice of Life</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Sports')">Sports</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Supernatural')">Supernatural</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Tragedy')">Tragedy</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Yaoi')">Yaoi</md-button>
+                <md-button class="md-raised" ng-click="vm.searchGenre('Yuri')">Yuri</md-button>
+            </div>
         </div>
     </div>
 </div>

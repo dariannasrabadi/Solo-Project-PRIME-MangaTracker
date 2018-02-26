@@ -19,37 +19,39 @@ myApp.service('UserService', ['$http', '$location', function ($http, $location) 
                 $location.path("/login");
             }
         },
-        function (response) {
-            console.log('UserService -- getuser -- failure: ', response);
-            $location.path("/login");
-        });
-    },
+            function (response) {
+                console.log('UserService -- getuser -- failure: ', response);
+                $location.path("/login");
+            });
+    }
 
-        self.logout = function () {
-            // Sweetalerts confirmation if logged in or not.
-            swal({
-                title: "Are you sure you want to Log Out?",
-                icon: "warning",
-                dangerMode: 'Yes',
-                buttons: ["No", "Yes"],
-              })
-                .then(value => {
-                    if (value) {
-                        console.log('UserService -- logout');
-                        $http.get('/api/user/logout').then(function (response) {
-                            console.log('UserService -- logout -- logged out');
-                            $location.path("/login");
-                        });
-                    }
-                })
 
-            // Normal alerts to confirm if logged in or not.
-            // if (confirm('Are you sure you want to Log out?')) {
-            //     console.log('UserService -- logout');
-            //     $http.get('/api/user/logout').then(function (response) {
-            //         console.log('UserService -- logout -- logged out');
-            //         $location.path("/login");
-            //     });
-            // }
-        }
+    self.logout = function () {
+        // Sweetalerts confirmation if logged in or not.
+        swal({
+            title: "Are you sure you want to Log Out?",
+            icon: "warning",
+            dangerMode: 'Yes',
+            buttons: ["No", "Yes"],
+        })
+            .then(value => {
+                if (value) {
+                    console.log('UserService -- logout');
+                    $http.get('/api/user/logout').then(function (response) {
+                        console.log('UserService -- logout -- logged out');
+                        $location.path("/login");
+                    });
+                }
+            })
+
+        // Normal alerts to confirm if logged in or not.
+        // if (confirm('Are you sure you want to Log out?')) {
+        //     console.log('UserService -- logout');
+        //     $http.get('/api/user/logout').then(function (response) {
+        //         console.log('UserService -- logout -- logged out');
+        //         $location.path("/login");
+        //     });
+        // }
+    }
+    
 }]);

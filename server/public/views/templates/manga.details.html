@@ -1,9 +1,10 @@
+<div id="mangaDetailsDiv">
 <div ng-include="'views/partials/nav.html'"></div>
 <div class="container">
 
     <!-- For when the user goes to this page without clicking on a manga or without clicking on one prior to that.  -->
     <div ng-if="!vm.detailsPage.list">
-        <h1>Will replace this text with an image or something stating something like: Why are you here? Go find a manga first.</h1>
+            <img src="../../styles/images/what.png">
     </div>
 
     <div ng-if="vm.detailsPage.list" layout="row" class="detailsDiv">
@@ -29,4 +30,5 @@
         </div>
     </div>
 
+</div>
 </div>

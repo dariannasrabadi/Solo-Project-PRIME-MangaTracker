@@ -1,8 +1,16 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
-myApp.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+myApp.config(['$routeProvider', '$locationProvider', '$mdThemingProvider', function ($routeProvider, $locationProvider, $mdThemingProvider) {
     console.log('myApp -- config')
+
+    // Added mdtheming, will put edits here to see if I will use it in the end or not
+
+    // $mdThemingProvider.theme('default')
+    // .primaryPalette('grey')
+    // .accentPalette('red');
+  
+
     $routeProvider
         .when('/', {
             redirectTo: 'login'

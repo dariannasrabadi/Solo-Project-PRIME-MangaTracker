@@ -5,7 +5,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     self.mangaResults = { list: [] }
     self.genreResults = { list: [] }
     self.userFavorites = { list: [] }
-    self.detailsPage = { list: {} }
+    self.detailsPage = {}
     self.favoriteDetailsPage;
 
     /******************************************/
@@ -20,9 +20,11 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
                     self.mangaResults.list = response
                     // console.log(self.mangaResults);
+                    window.scrollTo(0, 0) //Reset window scroll to top.
                     $location.path("/results");
                 }
                 else { //This is if the search results into only a single resulting manga. It will go to the manga details page directly. 
+                    // console.log(response.data);
                     self.detailsPage.list = response.data
                     $location.path("/mangainfo");
                 }
@@ -38,8 +40,8 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 }
                 else {
                     swal({
-                        text: `Please try a different keyword`,
-                        title: `There was an error searching "${searchInput}"`,
+                        text: `Please try a different one`,
+                        title: `There was an error with the search`,
                         icon: "error",
                     })
                 }
@@ -68,15 +70,20 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
             })
     }; //End of get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
 
-    // NOTE TO SELF; THIS CURRENTLY ONLY RELOADS ONCE. IF THE USER LOGS OUT AND SOMEONE ELSE LOGS IN WITHOUT REFRESHING THE PAGE THEIR FAVORITES WONT LOAD.
-    // QUICK FIX WOULD BE TO RELOAD ON CONTROLLER BUT THAT IS TOO MANY REFRESHES. FIX IN TIME. 
-    self.getFavorites()
+    //Doesnt do this if the user refreshes page on login/register view or if he logs in normally. 
+    if ($location.$$url !== '/login' && $location.$$url !== '/register') {
+        if (performance.navigation.type == 1) { // Check if page was reloaded. Since the user did not use the login method will pull his favorites.
+            // console.info("This page is reloaded");
+            self.getFavorites()
+        }
+    }
 
     self.searchGenre = function (genre) { //Search specified genre function (Used in home view and both results views)
         $http.get(`/api/manga/genres/${genre}`)
             .then(response => {
                 console.log(response);
                 self.genreResults.list = response
+                window.scrollTo(0, 0) //Reset window scroll to top.
                 $location.path("/genre");
             })
             .catch(error => {
@@ -98,6 +105,40 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 }
             })
     }; //Search specified genre function (Used in home view and both results views)
+
+    self.randomManga = function () {
+        $http.get(`/api/manga/button/random/manga`)
+            .then(response => {
+                // console.log(response);
+                if (Array.isArray(response.data)) { // If the resulting search is an array. Then it will pick a random one and display it.
+                    self.detailsPage.list = response.data[Math.floor(Math.random() * response.data.length)]
+                    $location.path("/mangainfo");
+                }
+                else { //This is if the search results into only a single resulting manga. It will go to the manga details page directly. 
+                    self.detailsPage.list = response.data
+                    $location.path("/mangainfo");
+                }
+            })
+            .catch(error => {
+                if (error.status === 403) {
+                    swal({
+                        title: 'Not Allowed!',
+                        text: `You are not logged in.`,
+                        icon: "error",
+                    })
+                    $location.path("/login");
+                }
+                else {
+                    console.log(error);
+                    swal({
+                        title: `Error spinning up a Manga`,
+                        text: `Please try again`,
+                        icon: "error",
+                    })
+                }
+            })
+    }
+
 
     /******************************************/
     /*             POST REQUESTS              */
@@ -192,6 +233,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                                 icon: "success",
                                 timer: 1200,
                                 buttons: false,
+                                icon: "../../styles/icons/trash.svg",
                             })
                             self.getFavorites()
                             // This is if the user is viewing the manga details page, it returns him to the favorites view.

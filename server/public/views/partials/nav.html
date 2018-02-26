@@ -27,14 +27,24 @@
         <a href="#!/info">Technologies</a>
 
     </div>
+    <!-- <md-content class="md-padding">
+    <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="home" href="#!/home" name="page1"> Home </md-nav-item>
+        <md-nav-item md-nav-click="favorites" name="page2"> Favorites </md-nav-item>
+        <md-nav-item md-nav-click="info" name="page3">Technologies</md-nav-item>
+    </md-nav-bar>
+    </md-content> -->
     <div layout="row" layout-align="center center">
         <form ng-submit="vm.searchManga(searchInput)">
-            <md-input-container>
+            <md-input-container id="inputLocation">
                 <label>Search Manga Here</label>
-                <input type="text" ng-model="searchInput">
+                <input id="navInput" type="text" ng-model="searchInput">
             </md-input-container>
         </form>
         <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+    </div>
+    <div>
+        <md-button class="md-raised md-primary" ng-click="vm.randomManga()">Surprise Me!</md-button>
     </div>
     <div layout="row" layout-align="center center">
         <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>

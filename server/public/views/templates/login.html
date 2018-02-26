@@ -1,27 +1,36 @@
 <div class="logReg" layout="column" layout-align="center center">
-    <div>
-        <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
-    </div>
-    <div>
-        <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
-    </div>
-    <div class="formWrapper">
-        <h1 class="lead">Login</h1>
-        <form ng-submit="vm.login()">
-            <div>
-                <md-input-container>
-                    <label for="username">Username:</label>
-                    <input type="text" ng-model="vm.user.username" />
-                </md-input-container>
-            </div>
-            <div>
-                <md-input-container>
-                    <label for="password">Password:</label>
-                    <input type="password" ng-model="vm.user.password" />
-                </md-input-container>
-            </div>
-            <md-button class="btn btn-default md-raised" type="submit" name="submit">Log In</md-button>
-            <a href="#!register">Register</a>
-        </form>
+    <div layout="column" layout-align="center center" id="landingDiv">
+        <div>
+            <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
+        </div>
+        <div>
+            <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+        </div>
+        <div class="formWrapper">
+            <h1 class="lead">Login</h1>
+            <form ng-submit="vm.login()">
+                <div>
+                    <md-input-container>
+                        <label for="username">Username:</label>
+                        <input type="text" ng-model="vm.user.username" />
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label for="password">Password:</label>
+                        <input type="password" ng-model="vm.user.password" />
+                    </md-input-container>
+                </div>
+                <md-button class="btn btn-default md-raised" type="submit" name="submit">Log In</md-button>
+                <a class="textLink" href="#!register">Register</a>
+            </form>
+        </div>
+        <!-- Will link this to open a modal - to search for a manga - to then lead to manga results listed in names - then to manga view about it. -->
+        <div>
+            <md-button class="md-raised" ng-click="vm.searchDialog($event)">Can we track your manga?</md-button>
+        </div>
+        <div>
+            <P>WARNING: Some searches may contain images that are not suitable for kids.</P>
+        </div>
     </div>
 </div>
