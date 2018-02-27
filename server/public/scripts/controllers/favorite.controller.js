@@ -1,5 +1,5 @@
 myApp.controller('FavoriteController', ['UserService', 'MangaService', function (UserService, MangaService) {
-    console.log('FavoriteController created');
+    // console.log('FavoriteController created');
     var self = this;
     //User Auth Functions (Verify user is logged in, User can log out)
     self.userService = UserService;

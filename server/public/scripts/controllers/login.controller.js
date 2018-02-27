@@ -1,5 +1,5 @@
 myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoProcessService', 'MangaService','$mdDialog', function ($http, $location, UserService, AutoProcessService, MangaService, $mdDialog) {
-    console.log('LoginController created');
+    // console.log('LoginController created');
     var self = this;
     self.user = {
         username: '',
@@ -11,11 +11,11 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoP
         if (self.user.username === '' || self.user.password === '') {
             self.message = "Enter your username and password!";
         } else {
-            console.log('sending to server...', self.user);
+            // console.log('sending to server...', self.user);
             $http.post('/api/user/login', self.user).then(
                 function (response) {
                     if (response.status == 200) {
-                        console.log('success: ', response.data);
+                        // console.log('success: ', response.data);
                         // location works with SPA (ng-route)
                         MangaService.getFavorites()
                         AutoProcessService.updateFavorites() //auto updates users favorites if he has some.
@@ -23,12 +23,12 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoP
                         $location.path('/home');
 
                     } else {
-                        console.log('failure error: ', response);
+                        // console.log('failure error: ', response);
                         self.message = "Incorrect credentials. Please try again.";
                     }
                 },
                 function (response) {
-                    console.log('failure error: ', response);
+                    // console.log('failure error: ', response);
                     self.message = "Incorrect credentials. Please try again.";
                 }
             );
@@ -39,14 +39,14 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoP
         if (self.user.username === '' || self.user.password === '') {
             self.message = "Choose a username and password!";
         } else {
-            console.log('sending to server...', self.user);
+            // console.log('sending to server...', self.user);
             $http.post('/api/user/register', self.user).then(function (response) {
-                console.log('success');
+                // console.log('success');
                 // REMINDER - Try to make a toast appear on successful account registration or something. 
                 $location.path('/login');
             },
                 function (response) {
-                    console.log('error');
+                    // console.log('error');
                     self.message = `Username "${self.user.username}" is already taken!`
                 }
             );
@@ -68,7 +68,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoP
                     $location.path('/register');
                 }
             }, function () {
-                console.log('User closed the box');
+                // console.log('User closed the box');
             });
     };
 
@@ -96,7 +96,7 @@ myApp.controller('LoginController', ['$http', '$location', 'UserService', 'AutoP
             self.details = false;
             $http.get(`/api/manga/preLogin/${searchInput}`)
                 .then(response => {
-                    console.log(response);
+                    // console.log(response);
                     if (Array.isArray(response.data)) { // If the resulting search is an array. Then continue to display the results.
                         self.mangaResults.list = response
                         self.results = true;

@@ -1,5 +1,5 @@
 myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', function (UserService, MangaService, $sce) {
-    console.log('HomeController created');
+    // console.log('HomeController created');
     var self = this;
     //User Auth Functions (Verify user is logged in, User can log out)
     self.userService = UserService;
@@ -41,7 +41,7 @@ myApp.controller('HomeController', ['UserService', 'MangaService', '$sce', funct
 // window.pageYOffset ----> what is used to set scroll back to top. also window.scrollTo(0, 0)
 
     self.genreDetail = function (genreManga) {
-        console.log(genreManga.substring(0,10));
+        // console.log(genreManga.substring(0,10));
         //Have to cut the manga into 10 chars and remove all special characters due to how the M.A.L. API works and considering the way they write manga names are different.
         genreManga = genreManga.replace(/(&.*?\;)/g, '');
         let mangaToSearch = genreManga.substring(0, 10)

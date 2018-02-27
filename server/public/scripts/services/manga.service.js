@@ -1,5 +1,5 @@
 myApp.service('MangaService', ['$http', '$location', function ($http, $location) {
-    console.log('MangaService Loaded');
+    // console.log('MangaService Loaded');
     var self = this;
 
     self.mangaResults = { list: [] }
@@ -65,7 +65,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    console.log('Error retrieving favorites', error);
+                    // console.log('Error retrieving favorites', error);
                 }
             })
     }; //End of get Favorites function (Used in favorites view, but loaded once user logs in. / refreshes page.)
@@ -81,7 +81,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     self.searchGenre = function (genre) { //Search specified genre function (Used in home view and both results views)
         $http.get(`/api/manga/genres/${genre}`)
             .then(response => {
-                console.log(response);
+                // console.log(response);
                 self.genreResults.list = response
                 window.scrollTo(0, 0) //Reset window scroll to top.
                 $location.path("/genre");
@@ -96,7 +96,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    console.log(error);
+                    // console.log(error);
                     swal({
                         text: `Please try a different one`,
                         title: `Error retrieving "${genre}" genre results`,
@@ -129,7 +129,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    console.log(error);
+                    // console.log(error);
                     swal({
                         title: `Error spinning up a Manga`,
                         text: `Please try again`,
@@ -145,7 +145,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     /******************************************/
 
     self.addFavorite = function (mangaInfo) {//Start of Add Favorites function (Used in results view and detailed manga (not infavorites yet) view)
-        console.log('data to add to the favorites', mangaInfo);
+        // console.log('data to add to the favorites', mangaInfo);
         $http.post(`/api/manga`, mangaInfo)
             .then(response => {
                 // console.log('added', response);   
@@ -167,7 +167,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    console.log('Error on adding to favorites.', error);
+                    // console.log('Error on adding to favorites.', error);
                     swal({
                         text: `Please add a different one`,
                         title: `${mangaInfo.title} is already in your favorites!`,
@@ -185,7 +185,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
         // console.log('Edited last chapter read: ', chapterRead.newChapterRead);
         $http.put(`/api/manga`, chapterRead)
             .then(response => {
-                console.log('Success from update manga: ', response);
+                // console.log('Success from update manga: ', response);
                 self.getFavorites()
             })
             .catch(error => {
@@ -198,7 +198,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                     $location.path("/login");
                 }
                 else {
-                    console.log('Error updating favorites', error);
+                    // console.log('Error updating favorites', error);
                     swal({
                         text: `Please Try Again!`,
                         title: 'Error Updating Chapter',
@@ -216,7 +216,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
     /******************************************/
 
     self.removeFavorite = function (toDelete) { // Start of remove selected manga function (used in favorites view)
-        console.log('this is the data to delete: ', toDelete);
+        // console.log('this is the data to delete: ', toDelete);
         swal({
             title: `Are you sure you want to delete ${toDelete.manga_name}`,
             icon: "warning",
@@ -227,7 +227,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                 if (value) { //To make sure that the user wants to delete the specific manga. 
                     $http.delete(`/api/manga/${toDelete.manga_id}`)
                         .then(response => {
-                            console.log('Success from delete manga: ', response);
+                            // console.log('Success from delete manga: ', response);
                             swal({
                                 title: `${toDelete.manga_name} has been removed!`,
                                 icon: "success",
@@ -249,7 +249,7 @@ myApp.service('MangaService', ['$http', '$location', function ($http, $location)
                                 $location.path("/login");
                             }
                             else {
-                                console.log('Error deleting favorites', error);
+                                // console.log('Error deleting favorites', error);
                             }
                         })
                 }

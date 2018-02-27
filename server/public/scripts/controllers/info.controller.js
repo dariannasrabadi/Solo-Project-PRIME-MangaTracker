@@ -1,5 +1,5 @@
 myApp.controller('InfoController', ['UserService', 'MangaService', function (UserService, MangaService) {
-    console.log('InfoController created');
+    // console.log('InfoController created');
     var self = this;
     //User Auth Functions (Verify user is logged in, User can log out)
     self.userService = UserService;
