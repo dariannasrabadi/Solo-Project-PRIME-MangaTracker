@@ -1,0 +1,75 @@
+<md-dialog aria-label="Manga Search">
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Manga Search</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="vm.cancel()">
+                    <md-icon md-svg-src="../../styles/icons/close.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content style="max-width:1400px;max-height:1400px; ">
+            <md-tabs md-dynamic-height md-border-bottom md-autoselect="true">
+                <md-tab label="Search">
+                    <md-content class="md-padding">
+                        <h3 class="md-display-2">Search for a Manga</h3>
+                        <div layout="row" layout-align="center center">
+                            <form ng-submit="vm.searchManga(searchInput)">
+                                <md-input-container>
+                                    <label>Manga Name Here</label>
+                                    <input type="text" ng-model="searchInput">
+                                </md-input-container>
+                            </form>
+                            <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+                        </div>
+                    </md-content>
+                </md-tab>
+                <md-tab ng-if="vm.results" label="Results">
+                    <md-content class="md-padding">
+                        <h1 class="md-display-2">"{{searchInput}}" Results</h1>
+                        <h3>Click a result for more information</h3>
+                        <ul ng-repeat="manga in vm.mangaResults.list.data">
+                            <div layout="row" layout-align="space-between center">
+                                <div>
+                                    <li class="previewMangas" ng-click="vm.mangaDetail(manga)">{{manga.title}}</li>
+                                </div>
+                                <!-- Will decide if ill still use this or not. If i do remember to put back ng-mouseover="show=!show" ng-mouseleave="show=!show" -->
+                                <!-- <div>
+                                    <img ng-if="show" ng-src="{{manga.image}}" />
+                                </div> -->
+                            </div>
+                        </ul>
+                    </md-content>
+                </md-tab>
+                <md-tab ng-if="vm.details" label="Details">
+                    <md-content class="md-padding">
+                        <div ng-if="vm.detailsPage.list" layout="row" class="detailsDiv">
+                            <div id="detailsBody">
+                                <h1 ng-if="vm.detailsPage.list.title">{{vm.detailsPage.list.title}}</h1>
+                                <p ng-if="vm.detailsPage.list.synopsis" ng-bind-html="vm.renderHTML(vm.detailsPage.list.synopsis)"></p>
+                                <p ng-if="!vm.detailsPage.list.synopsis">No Synopsis Available</p>
+                            </div>
+                            <div id="detailsImg">
+                                <img class="detailImage" ng-if="vm.detailsPage.list.image" ng-src="{{vm.detailsPage.list.image}}" alt="">
+                                <p>Status: {{vm.detailsPage.list.status}}</p>
+                                <p ng-if="vm.detailsPage.list.chapters">Chapters: {{vm.detailsPage.list.chapters}}</p>
+                            </div>
+                        </div>
+                    </md-content>
+                </md-tab>
+            </md-tabs>
+        </md-dialog-content>
+
+        <md-dialog-actions layout="row">
+            <h3>What do you want to do?</h3>
+            <span flex></span>
+            <md-button ng-click="vm.answer('False')">
+                Close Search
+            </md-button>
+            <md-button ng-click="vm.answer('True')" style="margin-right:20px;">
+                Register
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

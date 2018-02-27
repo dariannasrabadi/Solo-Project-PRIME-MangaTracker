@@ -3,11 +3,69 @@ body, html {
   padding: 0;
   font-family: sans-serif;
   font-size: 14px;
+  width: 100%;
+  height: 100%;
+
+}
+#otherDivs  {
+    position:relative;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background: url("images/backone.png") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+#homeDiv  {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background: url("images/backone.png") no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+#mangaDetailsDiv {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color:  rgba(83, 83, 83, 0.829);
+    /* opacity: 0.5; */
+    color: white
+
 }
 
 .instructions .container h1 {
   font-size: 32px;
   font-weight: 600;
+}
+
+.swal-icon.swal-icon--custom {
+    width: 175px;
 }
 
 .instructions {
@@ -44,37 +102,237 @@ body, html {
   background-color: #f8f8f8;
 }
 
-.btn-danger{
-  margin-left: 10px;
-}
-
 .navbar {
-  background-color: #333333;
+  /* background-color: #555454; */
   width: 100%;
   border-radius: 0px;
 }
 
-ul {
+.navList {
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
 }
 
-li {
+.navList li {
   float: left;
 }
 
-li a {
+.navList li a {
   display: block;
-  color: white;
+  color: black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
-li a:hover {
+.navList li a:hover {
   text-decoration: underline;
-  color: #eee;
+  color: #1e9406;
+}
+
+/* #userName {
+    color: white;
+} */
+
+/* cant get it to display how I want it to yet */
+/* #searchNav {
+align-content: center;
+} */
+
+
+#logOut {
+    margin-top: 15px;
+    margin-left: 5px;
+}
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cards {
+    width: 23%;
+    min-width: 225px;
+    min-height: 300px;
+}
+
+.cards img {
+   height: 350px;
+}
+
+.cards h3 {
+    margin: 10px 0 0 0;
+}
+
+md-input-container.md-block.flex-gt-sm {
+    margin: 5px 0 0 0;
+}
+
+.detailsDiv {
+    padding-top: 20px;
+}
+
+#detailsBody {
+    width: 70%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+#detailsImg {
+    width: 25%;
+}
+
+#addToFavorite {
+    background-color: #1e9406;
+}
+
+.genresDivList {
+    align-items: center;
+}
+
+.genresDivList button {
+    margin: 10px;
+}
+
+/* for manga details page */
+.detailImage{
+    width: 90%;
+    max-height: 350px;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+#landingDiv {
+    background-color:  rgba(83, 83, 83, 0.829);
+    /* opacity: 0.5; */
+    color: white
+}
+
+#presentation {
+    background-color:  rgba(83, 83, 83, 0.829);
+    /* opacity: 0.5; */
+    color: white
+}
+
+#landingDiv input {
+    background-color:  rgb(235, 235, 235);
+    /* opacity: 0.5; */
+}
+
+.textLink {
+    /* text-decoration: none; */
+    color: white;
+    
+}
+
+.logReg {
+    position:fixed;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+
+    background: url("images/backtwo.png") no-repeat fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+#info {
+    position:relative;
+    padding:0;
+    margin:0;
+
+    top:0;
+    left:0;
+
+    width: 100%;
+    height: 100%;
+}
+
+.navItems a {
+    padding-left: 10px;
+    padding-right: 10px;
+    color: white
+}
+
+
+.navItems h3 {
+    padding-right: 10px;
+}
+
+.navItems {
+    background-color: rgba(26, 26, 26, 0.829);
+    width: 100%;
+    color: white
+}
+
+
+#genre {
+    width: 100%;
+    height: 150px
+}
+
+.results {
+    width: 75%;
+    height: 150px;
+    margin: 0 auto;
+    /* object-fit: cover; */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+#wrongLogin {
+    color: red;
+}
+
+.cardsDiv {
+    width: 75%;
+}
+
+.genresDiv {
+    width: 25%;
+}
+
+.previewMangas {
+    cursor: pointer;
+}
+
+.md-display-2 {
+    margin: 5px auto;
+}
+
+.md-toolbar-tools {
+    background-color: rgb(87, 87, 87);
+}
+
+md-tabs.md-default-theme md-ink-bar, md-tabs md-ink-bar {
+    background: rgb(87, 87, 87);
+    color: rgb(87, 87, 87);
+}
+
+button.md-raised.md-primary.md-button.md-ink-ripple {
+    background-color: grey;
+}
+
+#navInput {
+    background-color:  rgb(235, 235, 235);
+}
+
+#inputLocation {
+    margin-top: 40px
 }

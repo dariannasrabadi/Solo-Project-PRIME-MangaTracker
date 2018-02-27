@@ -1,8 +1,53 @@
-<div class="navbar">
-  <div class="container">
-    <ul>
-      <li><a href="#!user">User Home</a></li>
-      <li><a href="#!info">Info Page</a></li>
-    </ul>
-  </div>
+<!-- <md-content class="md-padding">
+    <a href="#!home">
+        <img src="../../styles/images/MMT.png">
+    </a>
+    <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-href="#!/home">Home</md-nav-item>
+        <md-nav-item md-nav-href="#!/favorites">Favorites</md-nav-item>
+        <md-nav-item md-nav-href="#!/info">Technologies</md-nav-item>
+        <md-input-container>
+            <label>Search Manga Here</label>
+            <input type="text" ng-model="searchInput">
+        </md-input-container>
+        <md-button class="md-raised md-primary" ng-click="vm.searchManga(searchInput)">Search</md-button>
+        <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
+        <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
+    </md-nav-bar>
+</md-content> -->
+
+
+<div layout="row" layout-align="space-between center" class="navItems">
+    <div layout="row" layout-align="center center">
+        <a href="#!home">
+            <img class="clickable" src="../../styles/images/MMT.png">
+        </a>
+        <a href="#!/home">Home</a>
+        <a href="#!/favorites">Favorites</a>
+        <a href="#!/info">Technologies</a>
+
+    </div>
+    <!-- <md-content class="md-padding">
+    <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+        <md-nav-item md-nav-click="home" href="#!/home" name="page1"> Home </md-nav-item>
+        <md-nav-item md-nav-click="favorites" name="page2"> Favorites </md-nav-item>
+        <md-nav-item md-nav-click="info" name="page3">Technologies</md-nav-item>
+    </md-nav-bar>
+    </md-content> -->
+    <div layout="row" layout-align="center center">
+        <form ng-submit="vm.searchManga(searchInput)">
+            <md-input-container id="inputLocation">
+                <label>Search Manga Here</label>
+                <input id="navInput" type="text" ng-model="searchInput">
+            </md-input-container>
+        </form>
+        <md-button class="md-raised md-primary" type="submit" name="submit" ng-click="vm.searchManga(searchInput)">Search</md-button>
+    </div>
+    <div>
+        <md-button class="md-raised md-primary" ng-click="vm.randomManga()">Surprise Me!</md-button>
+    </div>
+    <div layout="row" layout-align="center center">
+        <h3 id="userName">Hi {{vm.userObject.userName}}!</h3>
+        <md-button id="logOut" class="md-raised" ng-click="vm.userService.logout()">Log Out</md-button>
+    </div>
 </div>

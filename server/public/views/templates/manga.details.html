@@ -1,0 +1,34 @@
+<div id="mangaDetailsDiv">
+<div ng-include="'views/partials/nav.html'"></div>
+<div class="container">
+
+    <!-- For when the user goes to this page without clicking on a manga or without clicking on one prior to that.  -->
+    <div ng-if="!vm.detailsPage.list">
+            <img src="../../styles/images/what.png">
+    </div>
+
+    <div ng-if="vm.detailsPage.list" layout="row" class="detailsDiv">
+        <div id="detailsBody">
+            <h1 ng-if="vm.detailsPage.list.title">{{vm.detailsPage.list.title}}</h1>
+            <h1 ng-if="vm.detailsPage.list.manga_name">{{vm.detailsPage.list.manga_name}}</h1>
+            <!-- Have to try to find a way to make synopsis display the HTML elements integrated into it -->
+            <p ng-bind-html="vm.renderHTML(vm.detailsPage.list.synopsis)"></p>
+        </div>
+        <div id="detailsImg">
+            <!-- Getting a 404 error on the console at the moment when the page loads, but it doesnt affect anything. -->
+            <img class="detailImage" ng-if="vm.detailsPage.list.image" ng-src="{{vm.detailsPage.list.image}}" alt="">
+            <img class="detailImage" ng-if="vm.detailsPage.list.manga_image_url" ng-src="{{vm.detailsPage.list.manga_image_url}}" alt="">
+            <p>Status: {{vm.detailsPage.list.status}}</p>
+            <p ng-if="vm.detailsPage.list.chapters">Number of Chapters: {{vm.detailsPage.list.chapters}}</p>
+            <!-- Declared Favorites Controller here in order to handle the remove favorites request. Put request could update here as well, but it will not refresh this page, possible stretch goal.-->
+            <span ng-if="vm.detailsPage.list.manga_id" ng-controller="FavoriteController as fc">
+                <p>Number of Chapters: {{vm.detailsPage.list.latest_chapter}}</p>
+                <p>Last Chapter Read: {{vm.detailsPage.list.last_chapter_read}}</p>
+                <md-button class="md-raised md-warn" ng-click="fc.removeFavorite(vm.detailsPage.list)">Remove Favorite</md-button>
+            </span>
+            <md-button ng-if="!vm.detailsPage.list.manga_id" class="md-raised md-primary" id="addToFavorite" ng-click="vm.addFavorite(vm.detailsPage.list)">Add to Favorites</md-button>
+        </div>
+    </div>
+
+</div>
+</div>

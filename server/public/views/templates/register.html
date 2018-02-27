@@ -1,17 +1,29 @@
-<div class="container">
-  <h1 class="lead">Register User</h1>
-  <h1 class="lead alert alert-danger" role="alert" ng-if="vm.message != ''">{{vm.message}}</h2>
-  <form ng-submit="vm.registerUser()">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" ng-model="vm.user.username" />
+<div class="logReg" layout="column" layout-align="center center">
+    <div layout="column" layout-align="center center" id="landingDiv">
+        <div>
+            <img class="fullLogo" src="../../styles/images/MyMangaTracker.png" alt="">
+        </div>
+        <div>
+            <h1 id="wrongLogin" role="alert" ng-if="vm.message != ''">{{vm.message}}</h1>
+        </div>
+        <div class="formWrapper">
+            <h1 class="lead">Register User</h1>
+            <form ng-submit="vm.registerUser()">
+                <div>
+                    <md-input-container>
+                        <label for="username">Username:</label>
+                        <input type="text" ng-model="vm.user.username" />
+                    </md-input-container>
+                </div>
+                <div>
+                    <md-input-container>
+                        <label for="password">Password:</label>
+                        <input type="password" ng-model="vm.user.password" />
+                    </md-input-container>
+                </div>
+                <md-button class="btn btn-default md-raised" type="submit" name="submit">Register</md-button>
+                <a class="textLink" href="#!login">Cancel</a>
+            </form>
+        </div>
     </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" ng-model="vm.user.password" />
-    </div>
-    <input class="btn btn-default" type="submit" name="submit" value="Register" />
-    <a href="#!home">Cancel</a>
-  </form>
-
 </div>
